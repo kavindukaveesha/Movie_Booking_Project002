@@ -7,19 +7,17 @@ public class User {
     private String password;
     private String mobile;
     private String role;
-    private String imageUrl;
     private boolean isActive;
     private boolean emailVerified;
 
     // Constructor
-    public User(int id, String fullName, String email, String password, String mobile, String role, String imageUrl, boolean isActive, boolean emailVerified) {
+    public User(int id, String fullName, String email, String password, String mobile, String role,boolean isActive, boolean emailVerified) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.mobile = mobile;
         this.role = role;
-        this.imageUrl = imageUrl; // Initialize image URL in the constructor
         this.isActive = isActive;
         this.emailVerified = emailVerified;
     }
@@ -73,13 +71,6 @@ public class User {
         this.role = role;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public boolean isActive() {
         return isActive;
@@ -107,7 +98,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", role='" + role + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", isActive=" + isActive +
                 ", emailVerified=" + emailVerified +
                 '}';
