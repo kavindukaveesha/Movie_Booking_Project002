@@ -295,6 +295,59 @@
             <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
         <!-- Repeated movie cards can be added here -->
+
+            <div class="movie-grid">
+                <div class="movie-card">
+                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
+                    <div class="movie-card-info">
+                        <h3>Thor Love & Thunder</h3>
+                        <div class="movie-meta">
+                            <span>2021</span>
+                            <span class="age-rating">18+</span>
+                            <span class="rating">★ 7.9</span>
+                        </div>
+                        <div class="buttons">
+                            <a href="#" class="book-now">Book now</a>
+                            <a href="#" class="watch-trailer">Watch Trailer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
+                    <div class="movie-card-info">
+                        <h3>Thor Love & Thunder</h3>
+                        <div class="movie-meta">
+                            <span>2021</span>
+                            <span class="age-rating">18+</span>
+                            <span class="rating">★ 7.9</span>
+                        </div>
+                        <div class="buttons">
+                            <a href="#" class="book-now">Book now</a>
+                            <a href="#" class="watch-trailer">Watch Trailer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
+                    <div class="movie-card-info">
+                        <h3>Thor Love & Thunder</h3>
+                        <div class="movie-meta">
+                            <span>2021</span>
+                            <span class="age-rating">18+</span>
+                            <span class="rating">★ 7.9</span>
+                        </div>
+                        <div class="buttons">
+                            <a href="#" class="book-now">Book now</a>
+                            <a href="#" class="watch-trailer">Watch Trailer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
     </section>
 
     <!-- About Section -->

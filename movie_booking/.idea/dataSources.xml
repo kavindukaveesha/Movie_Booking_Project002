@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/moviedb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@localhost [2]" uuid="73c1f798-74d2-4e4f-b5e4-1bb73dd01238">
+    <data-source source="LOCAL" name="postgres@localhost" uuid="73c1f798-74d2-4e4f-b5e4-1bb73dd01238">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
