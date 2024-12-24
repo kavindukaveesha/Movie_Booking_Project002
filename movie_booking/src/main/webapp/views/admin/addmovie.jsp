@@ -86,7 +86,7 @@
 
 <div class="flex flex-1">
     <!-- Include Navigation Bar -->
-    <jsp:include page="./admin-navbar/navbar.jsp"/>
+    <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
     <aside class="w-5/6 bg-gray-300 p-6">

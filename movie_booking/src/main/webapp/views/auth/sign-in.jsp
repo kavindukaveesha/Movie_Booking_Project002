@@ -115,6 +115,8 @@
             background-color: #757575;
             color: white;
             text-decoration: none;
+            text-align: center;
+            text-decoration: none;
         }
 
         .google-btn {
@@ -172,7 +174,7 @@
         <a href="<%= request.getContextPath() %>/auth/forgot-password" class="forgot-password">Forget Password?</a>
         <button class="login-btn" type="submit">Log in</button>
     </form>
-    <button class="back-btn" type="submit">Back to Home</button>
+    <a class="back-btn" type="submit" href="<%= request.getContextPath() %>/home">Back to Home</a>
     <div class="divider"><span>OR</span></div>
 
     <div class="signup-link">

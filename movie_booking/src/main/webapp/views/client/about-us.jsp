@@ -10,7 +10,6 @@
     <link href="styles.css" rel="stylesheet"/> <!-- Link to external CSS file -->
 
     <style>
-        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -18,14 +17,13 @@
         }
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to bottom, #000000, #4B0082); /* Background gradient */
-            color: #FFFFFF; /* White text color for whole body */
+            background: linear-gradient(to bottom, #000000, #4B0082);
+            color: #FFFFFF;
         }
         .container {
             width: 100%;
-            margin: 0 auto; /* Centering the container */
+            margin: 0 auto;
         }
-
         /* Navbar Styles */
         header {
             display: flex;
@@ -175,102 +173,31 @@
             margin: 30px 0;
         }
 
-        .hero {
-            padding: 50px;
-            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('https://i.ibb.co/0tHg0ST/image-1-1-2.png');
-            background-size: cover;
+        main {
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
         }
-        .hero-content {
-            display: flex;
-            gap: 30px;
-        }
-        .movie-poster {
-            width: 300px;
-        }
-        .movie-poster img {
+        .cinema-image {
             width: 100%;
-            border-radius: 10px;
-        }
-        .movie-info {
-            padding-top: 205px;
-            flex: 1;
-        }
-        .movie-title {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        .movie-description {
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .movie-meta {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .age-rating {
-            background-color: #ff0000;
-            padding: 2px 8px;
-            border-radius: 3px;
-        }
-        .rating {
-            color: #ffd700;
-        }
-        .genre {
-            color: #888;
-        }
-        .buttons {
-            display: flex;
-            gap: 20px;
-        }
-        .book-now, .watch-trailer {
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .book-now {
-            background-color: #ff0000;
-            color: white;
-        }
-        .watch-trailer {
-            background-color: white;
-            color: black;
-        }
-        .now-available {
-            padding: 50px;
-        }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .view-all {
-            color: white;
-            text-decoration: none;
-        }
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        .movie-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .movie-card-info {
-            margin-top: 10px;
-        }
-        .about-section {
-            padding: 50px;
-            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('https://i.ibb.co/1qnwZGP/image-3.png');
-            background-size: cover;
-        }
-        .about-content {
             max-width: 800px;
-            line-height: 1.6;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #FFD700; /* Golden color for a luxurious feel */
+            margin-bottom: 20px;
+        }
+        p {
+            padding: 0 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
         }
     </style>
 </head>
@@ -282,31 +209,16 @@
         <jsp:include page="/components/client-navbar.jsp" />
     </nav>
 
+    <main>
+        <h1>About Us <i class="fas fa-info-circle info-icon"></i></h1>
+        <img src="https://i.ibb.co/P9nP6P8/output-1.png" alt="ABC Cinema Front" class="cinema-image"/>
+        <p>Welcome to ABC Cinema, a cornerstone of entertainment excellence since our founding in 1975. Established by visionary entrepreneurs Mr. Manidu and Mr. Sathsara, who hold 51% and 49% shares respectively, ABC Cinema began with a passion for delivering world-class cinematic experiences to audiences across the nation. Today, we proudly operate over 10 state-of-the-art cinema halls strategically located around the country, providing unmatched comfort, cutting-edge technology, and immersive viewing experiences.</p>
+        <p>Our journey has expanded beyond cinema halls, making ABC Cinema a leading movie production house that creates blockbuster hits which captivate audiences and showcase the finest talent in the country. We are excited to announce the appointment of Miss Bindya and Miss Kaveesha as new directors, joining the ranks of ABC Cinema's esteemed management, bringing fresh perspectives and innovative ideas.</p>
+        <p>We invite you to be a part of our story, where the magic of movies continues to thrive. At ABC Cinema, we believe in the power of storytelling and its ability to inspire, entertain, and connect people. Experience the difference with us — where your comfort and enjoyment are always our top priorities.</p>
+    </main>
 
-    <!-- Hero Section -->
-    <section>
-        <jsp:include page="/components/homepage-hero-section.jsp" />
-    </section>
 
-    <!-- Now Available Section -->
-    <section class="now-available">
-        <div class="section-header">
-            <h2>Now Available</h2>
-            <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <!-- Repeated movie cards can be added here -->
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="about-content">
-            <p>At <span style="color: #FFD700;">ABC Cinema</span>, we're dedicated to providing you with the ultimate cinematic experience. From world-class facilities to exceptional customer care, your comfort and enjoyment are always our top priorities. Let us take care of the details so you can sit back, relax, and immerse yourself in the magic of the movies.</p>
-            <br/>
-            <p>Experience the difference—only at <span style="color: #FFD700;">ABC Cinema</span></p>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- Navbar -->
     <footer>
         <jsp:include page="/components/client-footer.jsp" />
     </footer>

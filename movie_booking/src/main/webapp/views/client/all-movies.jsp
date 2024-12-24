@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>ABC Cinema - Thor Love & Thunder</title>
+    <title>ABC Cinema - Thor Love & Thunder|| Movies</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="styles.css" rel="stylesheet"/> <!-- Link to external CSS file -->
@@ -288,23 +288,15 @@
         <jsp:include page="/components/homepage-hero-section.jsp" />
     </section>
 
-    <!-- Now Available Section -->
     <section class="now-available">
         <div class="section-header">
-            <h2>Now Available</h2>
+            <h2>All movies</h2>
             <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
         <!-- Repeated movie cards can be added here -->
     </section>
 
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="about-content">
-            <p>At <span style="color: #FFD700;">ABC Cinema</span>, we're dedicated to providing you with the ultimate cinematic experience. From world-class facilities to exceptional customer care, your comfort and enjoyment are always our top priorities. Let us take care of the details so you can sit back, relax, and immerse yourself in the magic of the movies.</p>
-            <br/>
-            <p>Experience the difference—only at <span style="color: #FFD700;">ABC Cinema</span></p>
-        </div>
-    </section>
+
 
     <!-- Footer -->
     <footer>

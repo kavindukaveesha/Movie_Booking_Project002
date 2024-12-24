@@ -1,19 +1,4 @@
-<%@ page import="com.example.movie_booking.model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!-- Retrieve user object from session -->
-<%
-    User user = null;
-    String userName = null;
-    session = request.getSession(false); // get existing session without creating a new one
-    if (session != null) {
-        user = (User) session.getAttribute("user");
-        if (user != null) {
-            userName = user.getFullName(); // Assuming User object has a getFullName() method
-        }
-    }
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +7,52 @@
     <title>ABC Cinema</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Additional CSS for the button if needed */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e0635;
+            padding: 10px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #FFD700;
+        }
+        .logo img {
+            margin-right: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            padding: 0;
+        }
+        nav ul li {
+            padding: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            color: #FFD700;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        .search, .booking, .fas {
+            color: white;
+            margin-right: 20px;
+            cursor: pointer;
+        }
         .sign-in-button {
             background-color: red;
             color: white;
@@ -30,18 +60,11 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 15px;
-        }
-
-        .sign-in-button a {
             text-decoration: none;
-            color: white;
         }
-
-        .dropdown{
-            margin-left: 15px;
+        .dropdown {
+            position: relative;
         }
-
         .dropdown-content {
             display: none;
             position: absolute;
@@ -50,22 +73,33 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
-
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
         .dropdown-content a {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
-
-        .dropdown-content a:hover {background-color: #f1f1f1}
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
+<%
+    String userName = null;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("username".equals(cookie.getName())) {
+                userName = cookie.getValue();
+                break;
+            }
+        }
+    }
+%>
 <header>
     <div class="logo">
         <img src="https://i.ibb.co/XDWNCbt/image.png" alt="ABC Cinema logo with a movie camera icon"/>
@@ -73,10 +107,11 @@
     </div>
     <nav>
         <ul>
-            <li><a href="#">Movies</a></li>
-            <li><a href="contactus.jsp">Contact us</a></li>
-            <li><a href="review.jsp">Review us</a></li>
-            <li><a href="aboutus.jsp">About us</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/movies">Movies</a></li>
+            <li><a href="${pageContext.request.contextPath}/contact-us">Contact us</a></li>
+            <li><a href="${pageContext.request.contextPath}/review-us">Review us</a></li>
+            <li><a href="${pageContext.request.contextPath}/about-us">About us</a></li>
         </ul>
     </nav>
     <div class="user-actions">
@@ -84,20 +119,18 @@
             <i class="fas fa-search"></i>
         </div>
         <div class="booking">
-            <i class="fas fa-ticket-alt"></i> <!-- Changed from bell to ticket icon -->
+            <i class="fas fa-ticket-alt"></i>
         </div>
         <% if (userName != null) { %>
         <div class="dropdown">
-            <span><%= userName %></span> <!-- Display username if logged in -->
+            <span><%= userName %></span>
             <i class="fas fa-chevron-down"></i>
             <div class="dropdown-content">
                 <a href="<%= request.getContextPath() %>/logout">Sign Out</a>
             </div>
         </div>
         <% } else { %>
-        <button class="sign-in-button">
-            <a href="<%= request.getContextPath() %>/auth/login">Sign in</a>
-        </button>
+        <a class="sign-in-button" href="<%= request.getContextPath() %>/auth/login">Sign in</a>
         <% } %>
     </div>
 </header>

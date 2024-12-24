@@ -1,16 +1,16 @@
 package com.example.movie_booking.service;
 
-import com.example.movie_booking.dao.ContactMessageDAO;
+import com.example.movie_booking.dao.ContactUsDAO;
 import com.example.movie_booking.model.ContactMessage;
 
 import java.sql.SQLException;
 
 public class ContactMessageService {
 
-    private ContactMessageDAO contactMessageDAO;
+    private ContactUsDAO contactMessageDAO;
 
     public ContactMessageService() {
-        this.contactMessageDAO = new ContactMessageDAO();
+        this.contactMessageDAO = new ContactUsDAO();
     }
 
     public void saveContactMessage(ContactMessage contactMessage) {

@@ -9,45 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <style>
-        .nav-link {
-            border-radius: 10px;
-        }
-        .colorButton {
-            cursor: pointer;
-        }
-        .colorButton:hover {
-            background-color: #fbbf24;
-            color: black;
-        }
-        .status-dot {
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .status-active {
-            background-color: yellow;
-        }
-        .status-inactive {
-            background-color: red;
-        }
-        .action-btn {
-            cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 4px;
-            margin: 0 3px;
-        }
-        .btn-add-movie {
-            background-color: #fbbf24;
-            color: black;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .btn-add-movie:hover {
-            background-color: #ffd85e;
-        }
+
     </style>
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
@@ -57,7 +19,7 @@
 
 <div class="flex flex-1">
     <!-- Include Navigation Bar -->
-    <jsp:include page="./admin-navbar/navbar.jsp"/>
+    <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
     <aside class="w-5/6 bg-gray-300 p-6">
