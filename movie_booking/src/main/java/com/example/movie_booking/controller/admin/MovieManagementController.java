@@ -89,7 +89,7 @@ public class MovieManagementController extends HttpServlet {
 
 //-------------------------------------------------Add-Movie----------------------------------------------------------------------------------
 
-    private static final String UPLOAD_PATH = "D:/Git Repo/TEST/Movie_Booking_Project002/movie_booking/src/main/webapp/DBImages";
+    private static final String UPLOAD_PATH = "D:/Git Repo/Movie_Booking_Project002/movie_booking/src/main/webapp/DBImages";
 
     private void addMovie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

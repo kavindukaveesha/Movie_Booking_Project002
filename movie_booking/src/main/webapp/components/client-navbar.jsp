@@ -1,4 +1,4 @@
-
+<%@ page import="com.example.movie_booking.model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,13 +91,18 @@
 <body>
 
 <%
-    String userName = null;
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if ("username".equals(cookie.getName())) {
-                userName = cookie.getValue();
-                break;
+    // Attempt to retrieve user object from session
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        // Fall back to checking cookies if no user in session
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    // For simplicity, just grabbing the username
+                    request.setAttribute("userName", cookie.getValue());
+                    break;
+                }
             }
         }
     }
@@ -123,9 +128,9 @@
         <div class="booking">
             <i class="fas fa-ticket-alt"></i>
         </div>
-        <% if (userName != null) { %>
+        <% if (user != null) { %>
         <div class="dropdown">
-            <span><%= userName %></span>
+            <span><%= user.getFullName() %></span>
             <i class="fas fa-chevron-down"></i>
             <div class="dropdown-content">
                 <a href="<%= request.getContextPath() %>/logout">Sign Out</a>

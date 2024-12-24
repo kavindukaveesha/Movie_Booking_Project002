@@ -29,5 +29,11 @@ public class MovieService {
     }
 
 
+    //--------------get movies for home page active ---------
+
+    public List<Movie> getAllActiveMovies() {
+        return movieDAO.getMoviesByStatus("Active");
+    }
+
 
 }

@@ -135,13 +135,14 @@ public class AuthController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if(email=="admin@gmail.com" && password=="admin123"){
-            HttpSession session = request.getSession();
-            session.setAttribute("name", "Admin");
-            session.setMaxInactiveInterval(3600);
-            response.sendRedirect("/admin/home");
-        }
         try {
+            // Check for hardcoded admin credentials
+            if (email.equals("admin@gmail.com") && password.equals("admin123")) {
+                response.sendRedirect(request.getContextPath() + "/admin/movie-management");
+                return; // Important to prevent further processing
+            }
+
+            // Proceed with normal authentication
             User user = authService.loginUser(email, password);
             if (user == null) {
                 request.setAttribute("error", "Invalid email or password.");
@@ -153,7 +154,10 @@ public class AuthController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 session.setMaxInactiveInterval(3600); // one hour
-                response.sendRedirect(user.getRole().equals("CLIENT") ? request.getContextPath() + "/home" : "");
+                // Redirect based on the user role
+                if (user.getRole().equals("CLIENT")) {
+                    response.sendRedirect(request.getContextPath() + "/home");
+                }
             }
         } catch (Exception e) {
             request.setAttribute("error", "An internal error occurred. Please try again.");
