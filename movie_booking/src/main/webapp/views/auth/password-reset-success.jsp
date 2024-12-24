@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification Successful - ABC Cinema</title>
+    <title>Password Reset Successful - ABC Cinema</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -57,8 +57,8 @@
 </head>
 <body>
 <div class="success-container">
-    <h1>Email Verified Successfully!</h1>
-    <p>Your email has been successfully verified. You can now log in and start using ABC Cinema.</p>
+    <h1>Password Reset Successfully!</h1>
+    <p>Your password has been successfully reset. You can now log in and start using ABC Cinema.</p>
     <button onclick="window.location.href='<%= request.getContextPath() %>/auth/login'">Go to Sign In</button>
 </div>
 </body>

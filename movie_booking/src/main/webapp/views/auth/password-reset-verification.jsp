@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your Account - ABC Cinema</title>
+    <title>Password Reset Verification - ABC Cinema</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -92,21 +92,21 @@
 </head>
 <body>
 <div class="verification-container">
-    <h1>Email Verification</h1>
-    <p>Please enter the verification code we sent to <strong><%= request.getParameter("email") %></strong></p>
-    <%-- Display message from servlet --%>
+    <h1>Password Reset Verification</h1>
+    <p>Please enter the verification code sent to <strong><%= request.getParameter("email") %></strong> to proceed with resetting your password.</p>
+    <%-- Display error or success messages from servlet --%>
     <c:if test="${not empty error}">
         <div class="alert alert-danger">${error}</div>
     </c:if>
 
-    <form action="<%= request.getContextPath() %>/auth/verify-code" method="post">
+    <form action="<%= request.getContextPath() %>/auth/verify-password-reset-code" method="post">
         <input type="hidden" name="email" value="<%= request.getParameter("email") %>">
         <div class="form-group">
-            <input type="text" name="code" placeholder="Enter Verification Code" required>
+            <input type="text" name="code" placeholder="Verification Code" required>
         </div>
-        <button type="submit">Verify Email</button>
+        <button type="submit">Verify Code</button>
     </form>
-    <p class="info-text">Check your email for the verification code. If you didn't receive it, <a href="<%= request.getContextPath() %>/resend">click here to resend</a>.</p>
+    <p class="info-text">Didn't receive the code? <a href="<%= request.getContextPath() %>/auth/resend-code?email=<%= request.getParameter("email") %>">Click here to resend</a>.</p>
 </div>
 </body>
 </html>

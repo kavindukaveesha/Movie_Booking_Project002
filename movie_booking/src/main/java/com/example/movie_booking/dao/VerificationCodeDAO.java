@@ -10,7 +10,7 @@ public class VerificationCodeDAO {
 
     // Add a new verification code
     public boolean addVerificationCode(int userId, String code, LocalDateTime expiresAt) {
-        String query = "INSERT INTO VerificationCodes (userId, code, createdAt, expiresAt, isUsed) VALUES (?, ?, NOW(), ?, false)";
+        String query = "INSERT INTO VerificationCode (userId, code, createdAt, expiresAt, isUsed) VALUES (?, ?, NOW(), ?, false)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
@@ -28,7 +28,7 @@ public class VerificationCodeDAO {
 
     // Mark a verification code as used
     public boolean markCodeAsUsed(int userId, String code) {
-        String query = "UPDATE VerificationCodes SET isUsed = true WHERE userId = ? AND code = ? AND isUsed = false";
+        String query = "UPDATE VerificationCode SET isUsed = true WHERE userId = ? AND code = ? AND isUsed = false";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
@@ -45,7 +45,7 @@ public class VerificationCodeDAO {
 
     // Retrieve a verification code for a specific user and code value
     public Optional<VerificationCode> getVerificationCode(int userId, String code) {
-        String query = "SELECT * FROM VerificationCodes WHERE userId = ? AND code = ?";
+        String query = "SELECT * FROM VerificationCode WHERE userId = ? AND code = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);

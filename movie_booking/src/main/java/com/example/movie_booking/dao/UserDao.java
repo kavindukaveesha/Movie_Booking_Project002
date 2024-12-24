@@ -30,11 +30,11 @@ public class UserDao {
         return false;
     }
 
-    public int addUser(String username, String email, int mobile, String password, String role, boolean isActive, boolean emailVerified) {
+    public int addUser(String fullName, String email, int mobile, String password, String role, boolean isActive, boolean emailVerified) {
         String query = "INSERT INTO users (fullName, email, password, mobile, role, isActive, emailVerified) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, username);
+            statement.setString(1, fullName);
             statement.setString(2, email);
             statement.setString(3, password);
             statement.setInt(4, mobile);
@@ -130,7 +130,7 @@ public class UserDao {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("userID");
+                return resultSet.getInt("id");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Database error while retrieving user ID.", e);

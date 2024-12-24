@@ -19,9 +19,11 @@ import java.io.IOException;
         "/auth/enter-code",
         "/auth/verify-email",
         "/auth/verify-email-password",
-        "/auth/password-verify-code",
+        "/auth/verify-password-reset-code",
         "/auth/reset-password",
         "/auth/verify-code",
+        "/auth/password-reset-verification",
+        "/auth/send-password-reset-code",
         "/logout"
 })
 public class AuthController extends HttpServlet {
@@ -44,15 +46,14 @@ public class AuthController extends HttpServlet {
             case "/auth/login":
                 forwardToPage(request, response, "/views/auth/sign-in.jsp");
                 break;
-            case "/auth/forgot-password":
-                forwardToPage(request, response, "/views/auth/forget-password.jsp");
-                break;
             case "/auth/verify-email":
-            case "/auth/verify-email-password":
                 forwardToPage(request, response, "/views/auth/email-verification.jsp");
                 break;
-            case "/auth/enter-code":
-                forwardToPage(request, response, "/views/auth/enter_code.jsp");
+            case "/auth/forgot-password":
+                forwardToPage(request, response, "/views/auth/enter-email-for-password-reset.jsp");
+                break;
+            case "/auth/password-reset-verification":
+                forwardToPage(request, response, "/views/auth/password-reset-verification.jsp");
                 break;
             case "/auth/reset-password":
                 forwardToPage(request, response, "/views/auth/reset-password.jsp");
@@ -77,8 +78,8 @@ public class AuthController extends HttpServlet {
             case "/auth/login":
                 loginUser(request, response);
                 break;
-            case "/auth/forgot-password":
-                forgotPassword(request, response);
+            case "/auth/send-password-reset-code":
+                sendPasswordResetCode(request, response);
                 break;
             case "/auth/verify-code":
                 verifyEmailCode(request, response);
@@ -86,7 +87,7 @@ public class AuthController extends HttpServlet {
             case "/auth/reset-password":
                 resetPassword(request, response);
                 break;
-            case "/auth/password-verify-code":
+            case "/auth/verify-password-reset-code":
                 verifyPasswordResetCode(request, response);
                 break;
             default:
@@ -116,7 +117,7 @@ public class AuthController extends HttpServlet {
             int mobile = Integer.parseInt(mobileStr);
             boolean isRegistered = authService.registerUser(fullName, email, mobile, password,"CLIENT",false,false);
             if (isRegistered) {
-                response.sendRedirect(request.getContextPath() + "/auth/email-verification?email=" + email);
+                response.sendRedirect(request.getContextPath() + "/auth/verify-email?email=" + email);
             } else {
                 request.setAttribute("error", "Registration failed. Please try again!");
                 forwardToPage(request, response, "/views/auth/sign-up.jsp");
@@ -160,17 +161,18 @@ public class AuthController extends HttpServlet {
         }
     }
 
-    private void forgotPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void sendPasswordResetCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         try {
             boolean emailSent = authService.sendForgotPasswordCode(email);
             if (emailSent) {
-                response.sendRedirect(request.getContextPath() + "/auth/verify-email?email=" + email);
+                response.sendRedirect(request.getContextPath() + "/auth/password-reset-verification?email=" + email);
             } else {
-                response.sendRedirect(request.getContextPath() + "/auth/forgot-password?error=user_not_found");
+                response.sendRedirect(request.getContextPath() + "/error.jsp?error=User not found.");
             }
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to send password reset email");
+            e.printStackTrace(); // Log the exception for debugging
+            response.sendRedirect(request.getContextPath() + "/error.jsp?error=Failed to send password reset email. " + e.getMessage());
         }
     }
 
@@ -214,7 +216,7 @@ public class AuthController extends HttpServlet {
     private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String code = request.getParameter("code");
-        String newPassword = request.getParameter("newPassword");
+        String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
         if (!newPassword.equals(confirmPassword)) {
@@ -225,7 +227,7 @@ public class AuthController extends HttpServlet {
 
         if (authService.resetPassword(email, code, newPassword)) {
             request.setAttribute("success", "Password reset successfully. You can now log in.");
-            forwardToPage(request, response, "/views/auth/sign-in.jsp");
+            forwardToPage(request, response, "/views/auth/password-reset-success.jsp");
         } else {
             request.setAttribute("error", "Failed to reset password. Please try again.");
             forwardToPage(request, response, "/views/auth/reset-password.jsp");

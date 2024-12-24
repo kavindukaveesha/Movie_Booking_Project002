@@ -17,12 +17,12 @@ public class AuthService {
     private static final Logger LOGGER = Logger.getLogger(AuthService.class.getName());
 
     // Registers a new user and sends a verification email
-    public boolean registerUser(String username, String email, int mobile, String password,String role,boolean isActive,boolean emailVerified) throws Exception {
+    public boolean registerUser(String fullName, String email, int mobile, String password,String role,boolean isActive,boolean emailVerified) throws Exception {
         if (userDao.isEmailExists(email)) {
             throw new IllegalArgumentException("Email already exists. Please use a different email.");
         }
 
-        int userId = userDao.addUser(username, email, mobile, password,role,isActive,emailVerified);
+        int userId = userDao.addUser(fullName, email, mobile, password,role,isActive,emailVerified);
         if (userId != -1) {
             return sendVerificationCode(userId, email);
         }
@@ -85,11 +85,9 @@ public class AuthService {
     // Resets the user's password
     public boolean resetPassword(String email, String code, String newPassword) {
         int userId = userDao.getUserIdByEmail(email);
-        if (verificationCodeService.verifyCode(userId, code)) {
-            verificationCodeService.markCodeAsUsed(userId, code);
-            return userDao.updatePassword(userId, newPassword);
-        }
-        return false;
+        return userDao.updatePassword(userId, newPassword);
+
+
     }
 
     // Utility method to generate a 6-digit verification code
