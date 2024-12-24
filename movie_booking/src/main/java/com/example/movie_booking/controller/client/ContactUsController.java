@@ -42,8 +42,14 @@ public class ContactUsController extends HttpServlet {
             contactMessage.setEmail(email);
             contactMessage.setMessage(message);
 
-            contactMessageService.saveContactMessage(contactMessage);
-            response.getWriter().write("{\"status\":\"success\",\"message\":\"Thank you for contacting us!\"}");
+            if(contactMessageService.saveContactMessage(contactMessage))
+            {
+                response.getWriter().write("{\"status\":\"success\",\"message\":\"Thank you for contacting us!\"}");
+            }else {
+                response.getWriter().write("{\"status\":\"Error\",\"message\":\"Error\"}");
+
+            }
+
         } catch (IllegalArgumentException e) {
             response.setStatus(400); // Bad Request
             response.getWriter().write("{\"status\":\"error\",\"message\":\"" + e.getMessage() + "\"}");

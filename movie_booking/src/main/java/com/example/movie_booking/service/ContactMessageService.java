@@ -13,17 +13,12 @@ public class ContactMessageService {
         this.contactMessageDAO = new ContactUsDAO();
     }
 
-    public void saveContactMessage(ContactMessage contactMessage) {
-        try {
+    public boolean saveContactMessage(ContactMessage contactMessage) throws SQLException {
+
             validateContactMessage(contactMessage);
             this.contactMessageDAO.saveContactMessage(contactMessage);
-        } catch (SQLException e) {
-            System.err.println("Database error in service layer: " + e.getMessage());
-            throw new RuntimeException("Failed to save contact message", e);
-        } catch (Exception e) {
-            System.err.println("Unexpected error in service layer: " + e.getMessage());
-            throw new RuntimeException("Service error occurred", e);
-        }
+            return true;
+
     }
 
     private void validateContactMessage(ContactMessage message) {

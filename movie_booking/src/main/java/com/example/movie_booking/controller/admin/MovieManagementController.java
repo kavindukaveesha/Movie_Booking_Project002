@@ -35,28 +35,29 @@ public class MovieManagementController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if (action == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
-            return;
+
+            // Default action to "showMovies" if not provided
+            if (action == null || action.isEmpty()) {
+                action = "showMovies";
+            }
+
+            switch (action) {
+                case "showMovies":
+                    showMovies(request, response);
+                    break;
+                case "viewShows":
+                    viewShows(request, response);
+                    break;
+                case "updateForm":
+                    showUpdateForm(request, response);
+                    break;
+                default:
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+            }
         }
 
-        switch (action) {
-            case "showMovies":
-                showMovies(request, response);
-                break;
-            case "viewShows":
-                viewShows(request, response);
-                break;
-            case "updateForm":
-                showUpdateForm(request, response);
-                break;
-
-            default:
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
-        }
 
 
-    }
 
 
 
