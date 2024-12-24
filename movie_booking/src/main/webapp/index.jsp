@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="login">gmail</a>
+<a href="views/admin/movies.jsp">gmail</a>
 </body>
 </html>
