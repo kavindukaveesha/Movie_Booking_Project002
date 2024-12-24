@@ -24,25 +24,46 @@ public class ContactSubmitServlet extends HttpServlet {
       System.out.println("Servlet triggered");
       response.setContentType("application/json");
 
-
-      String name = request.getParameter("name");
-      String email = request.getParameter("email");
-      String message = request.getParameter("message");
-
-      System.out.println("Name: " + name + ", Email: " + email + ", Message: " + message);
-
-      // Create ContactMessage object
-      ContactMessage contactMessage = new ContactMessage();
-      contactMessage.setName(name);
-      contactMessage.setEmail(email);
-      contactMessage.setMessage(message);
-
       try {
-          contactMessageService.saveContactMessage(contactMessage);
+          String name = request.getParameter("name");
+          String email = request.getParameter("email");
+          String message = request.getParameter("message");
+
+          // Validate email format
+          if (!isValidEmail(email)) {
+              throw new IllegalArgumentException("Invalid email format");
+          }
+
+          System.out.println("Validated input - Name: " + name + ", Email: " + email);
+
+          ContactMessage contactMessage = new ContactMessage();
+          contactMessage.setName(name);
+          contactMessage.setEmail(email);
+          contactMessage.setMessage(message);
+
+          this.contactMessageService.saveContactMessage(contactMessage);
           response.getWriter().write("{\"status\":\"success\",\"message\":\"Thank you for contacting us!\"}");
+      } catch (IllegalArgumentException e) {
+          response.setStatus(400); // Bad Request
+          response.getWriter().write("{\"status\":\"error\",\"message\":\"" + e.getMessage() + "\"}");
       } catch (Exception e) {
-          response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-          response.getWriter().write("{\"status\":\"error\",\"message\":\"Something went wrong. Please try again later.\"}");
+          System.err.println("Error in ContactSubmitServlet: " + e.getMessage());
+          e.printStackTrace();
+          response.setStatus(500);
+          response.getWriter().write("{\"status\":\"error\",\"message\":\"Server error occurred\"}");
       }
   }
+
+    private String validateInput(String input, String fieldName) {
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " is required");
+        }
+        return input.trim();
+    }
+
+
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
 }
