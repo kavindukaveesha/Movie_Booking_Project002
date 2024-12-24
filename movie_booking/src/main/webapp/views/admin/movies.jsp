@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <style>
+
         .nav-link {
             border-radius: 10px;
         }
@@ -49,6 +51,7 @@
         .btn-add-movie:hover {
             background-color: #ffd85e;
         }
+
     </style>
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
@@ -58,7 +61,8 @@
 
 <div class="flex flex-1">
     <!-- Include Navigation Bar -->
-    <jsp:include page="./admin-navbar/navbar.jsp"/>
+
+    <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
     <aside class="w-5/6 bg-gray-300 p-6">
@@ -67,6 +71,7 @@
                 <h2 class="text-2xl font-bold">Movie Details Management</h2>
                 <div class="mt-6">
                     <a href="${pageContext.request.contextPath}/views/admin/addmovie.jsp" class="btn-add-movie">
+
                         <i class="fas fa-plus"></i> Add Movie
                     </a>
                 </div>
@@ -85,6 +90,7 @@
                     </thead>
                     <tbody>
                     <!-- Example rows (replace with dynamic data as needed) -->
+
                     <c:forEach var="movie" items="${movies}">
                         <tr>
 
@@ -122,6 +128,7 @@
 
 
 
+
                     <tr>
                         <td class="border py-2 px-4">
                             <img src="example.jpg" alt="Movie Image" class="h-10 w-10 rounded"/>
@@ -136,9 +143,11 @@
                             <button class="action-btn bg-yellow-400">
                                 <i class="fas fa-calendar-plus"></i> Add Show
                             </button>
+
                             <button class="action-btn bg-yellow-400">
                                 <i class="fa-regular fa-eye fa-beat"></i> View Shows
                             </button>
+
                             <button class="action-btn bg-blue-500 text-white">
                                 <i class="fas fa-pen"></i>
                             </button>

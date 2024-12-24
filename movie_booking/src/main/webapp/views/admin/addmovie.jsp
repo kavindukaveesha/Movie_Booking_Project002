@@ -85,6 +85,7 @@
             margin-bottom: 15px;
             border-radius: 5px;
         }
+
     </style>
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
@@ -94,12 +95,16 @@
 
 <div class="flex flex-1">
     <!-- Include Navigation Bar -->
-    <jsp:include page="./admin-navbar/navbar.jsp"/>
+nclude page="./admin-navbar/navbar.jsp"/>
+
+    <jsp:include page="/components/admin-navbar.jsp"/>
+
 
     <!-- Main Content -->
     <aside class="w-5/6 bg-gray-300 p-6">
         <main class="w-full">
             <h2 class="text-2xl font-bold mb-6">Movie Details</h2>
+
             <c:if test="${not empty error}">
                 <div class="error-message">
                     <p>${error}</p>
@@ -109,6 +114,11 @@
                 <div class="form-grid">
                     <!-- Movie Title -->
                     <input type="hidden" name="action" value="addMovie">
+
+            <form>
+                <div class="form-grid">
+                    <!-- Movie Title -->
+
                     <label for="movieTitle" class="label">Movie Title</label>
                     <input type="text" id="movieTitle" name="movieTitle" class="input-field" placeholder="Enter movie title">
 
