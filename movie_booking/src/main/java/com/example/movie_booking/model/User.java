@@ -5,13 +5,13 @@ public class User {
     private String fullName;
     private String email;
     private String password;
-    private String mobile;
+    private int mobile;
     private String role;
     private boolean isActive;
     private boolean emailVerified;
 
     // Constructor
-    public User(int id, String fullName, String email, String password, String mobile, String role,boolean isActive, boolean emailVerified) {
+    public User(int id, String fullName, String email, String password, int mobile, String role,boolean isActive, boolean emailVerified) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -55,11 +55,11 @@ public class User {
         this.password = password;
     }
 
-    public String getMobile() {
+    public int getMobile() {
         return mobile;
     }
 
-    public void setMobile(String mobile) {
+    public void setMobile(int mobile) {
         this.mobile = mobile;
     }
 
