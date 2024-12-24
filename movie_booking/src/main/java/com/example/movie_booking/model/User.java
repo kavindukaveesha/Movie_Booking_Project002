@@ -22,6 +22,16 @@ public class User {
         this.emailVerified = emailVerified;
     }
 
+    public User(int id, String fullName, String email, int mobile, String role, boolean isActive, boolean emailVerified) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.mobile = mobile;
+        this.role = role;
+        this.isActive = isActive;
+        this.emailVerified = emailVerified;
+    }
+
     // Getters and Setters
     public int getId() {
         return id;

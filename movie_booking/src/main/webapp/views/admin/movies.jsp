@@ -56,7 +56,7 @@
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
 <header class="text-white items-center p-3">
-    <img alt="logo.png" class="mr-2 h-20" src="logo/logo3.png"/>
+    <img alt="logo.png" class="mr-2 h-20" src="https://i.ibb.co/XDWNCbt/image.png"/>
 </header>
 
 <div class="flex flex-1">
