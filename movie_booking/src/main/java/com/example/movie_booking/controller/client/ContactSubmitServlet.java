@@ -1,5 +1,7 @@
 package com.example.movie_booking.controller.client;
 
+import com.example.movie_booking.model.ContactMessage;
+import com.example.movie_booking.service.ContactMessageService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,18 +13,36 @@ import java.rmi.ServerException;
 
 @WebServlet("/contact-submit")
 public class ContactSubmitServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServerException, IOException{
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String message = request.getParameter("message");
+  private ContactMessageService contactMessageService;
 
-        System.out.println("Name: " + name);
-        System.out.println("Email: " + email);
-        System.out.println("Message: " + message);
+  @Override
+    public void init(){
+      this.contactMessageService = new ContactMessageService();
+  }
 
-        response.setContentType("text/html");
-        response.getWriter().println("<h3>Thank you for contacting us, " + name + "!</h3>");
-    }
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      System.out.println("Servlet triggered");
+      response.setContentType("application/json");
 
+
+      String name = request.getParameter("name");
+      String email = request.getParameter("email");
+      String message = request.getParameter("message");
+
+      System.out.println("Name: " + name + ", Email: " + email + ", Message: " + message);
+
+      // Create ContactMessage object
+      ContactMessage contactMessage = new ContactMessage();
+      contactMessage.setName(name);
+      contactMessage.setEmail(email);
+      contactMessage.setMessage(message);
+
+      try {
+          contactMessageService.saveContactMessage(contactMessage);
+          response.getWriter().write("{\"status\":\"success\",\"message\":\"Thank you for contacting us!\"}");
+      } catch (Exception e) {
+          response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+          response.getWriter().write("{\"status\":\"error\",\"message\":\"Something went wrong. Please try again later.\"}");
+      }
+  }
 }
