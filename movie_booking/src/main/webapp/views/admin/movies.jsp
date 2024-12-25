@@ -95,7 +95,7 @@
                         <tr>
 
                             <td class="border py-2 px-4">
-                                <img src="../../DBImages/${movie.imageUrl}" alt="Movie Image" class="h-10 w-10 rounded"/>
+                                <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="Movie Image" class="h-10 w-10 rounded"/>
                             </td>
                             <td class="border py-2 px-4">${movie.title}</td>
                             <td class="border py-2 px-4">

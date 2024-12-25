@@ -24,7 +24,7 @@
             font-family: 'Roboto', sans-serif;
             background-color: #0f0f0f;
             color: white;
-            background-image: url('https://i.ibb.co/LYp7KJr/image-1-1.png');
+
         }
         .container {
             width: 100%;
@@ -78,7 +78,7 @@
         .hero {
             position: relative;
             height: 500px;
-            background-image: url('https://i.ibb.co/0tHg0ST/image-1-1-2.png');
+            background-image: url('${pageContext.request.contextPath}/DBImages/${movie.imageUrl}');
             background-size: cover;
             background-position: center;
             display: flex;

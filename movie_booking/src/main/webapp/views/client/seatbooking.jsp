@@ -245,7 +245,7 @@
 
     <!-- Movie Info -->
     <div class="movie-info">
-        <img src="${movie.imageUrl}" alt="${movie.title}">
+        <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="${movie.title}">
         <div class="movie-details">
             <h1>${movie.title}</h1>
             <p><strong style="color:#FFD700">Description:</strong> ${movie.description}</p>

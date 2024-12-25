@@ -178,7 +178,7 @@
 
         .hero {
             padding: 50px;
-            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('https://i.ibb.co/0tHg0ST/image-1-1-2.png');
+            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}');
             background-size: cover;
         }
         .hero-content {
@@ -289,7 +289,7 @@
         <c:forEach var="heroMovie" items="${movies}" begin="0" end="0">
             <div class="hero-content">
                 <div class="movie-poster">
-                    <img src="${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster"/>
+                    <img src="${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster"  style="height:60vh" />
                 </div>
                 <div class="movie-info">
                     <h1 class="movie-title">${heroMovie.title}</h1>
@@ -325,7 +325,7 @@
         <div class="movie-grid">
             <c:forEach var="movie" items="${movies}" begin="1" end="3">
                 <div class="movie-card">
-                    <img src="${movie.imageUrl}" alt="${movie.title}"/>
+                    <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="${movie.title}"/>
                     <div class="movie-card-info">
                         <h3>${movie.title}</h3>
                         <div class="movie-meta">
