@@ -4,6 +4,8 @@ import com.example.movie_booking.model.User;
 import com.example.movie_booking.utils.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class handles all database operations related to user authentication
@@ -138,6 +140,46 @@ public class UserDao {
             throw new RuntimeException(e);
         }
         return -1; // User not found
+    }
+
+    public List<User> getAllUsers() {
+        String query = "SELECT * FROM Users";
+        List<User> users = new ArrayList<>();
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("fullName"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("mobile"),
+                        resultSet.getString("role"),
+                        resultSet.getBoolean("isActive"),
+                        resultSet.getBoolean("emailVerified")
+                );
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error while fetching all users.", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    public boolean setActiveStatus(int userId, boolean isActive) {
+        String query = "UPDATE Users SET isActive = ? WHERE id = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setBoolean(1, isActive);
+            statement.setInt(2, userId);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error while updating user active status.", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

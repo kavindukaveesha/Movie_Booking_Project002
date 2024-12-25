@@ -164,7 +164,6 @@ public class AuthController extends HttpServlet {
             forwardToPage(request, response, "/views/auth/sign-in.jsp");
         }
     }
-
     private void sendPasswordResetCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         try {
