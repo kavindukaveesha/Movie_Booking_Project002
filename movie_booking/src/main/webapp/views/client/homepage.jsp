@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -284,71 +285,64 @@
 
 
     <!-- Hero Section -->
-    <section>
-        <jsp:include page="/components/homepage-hero-section.jsp" />
+    <section class="hero">
+        <c:forEach var="heroMovie" items="${movies}" begin="0" end="0">
+            <div class="hero-content">
+                <div class="movie-poster">
+                    <img src="${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster"/>
+                </div>
+                <div class="movie-info">
+                    <h1 class="movie-title">${heroMovie.title}</h1>
+                    <p class="movie-description">${heroMovie.description}</p>
+                    <div class="movie-meta">
+                        <span>${heroMovie.status}</span>
+                        <span class="age-rating">${heroMovie.ageRange}</span>
+                        <span class="rating">★ ${heroMovie.rating}</span>
+                        <c:forEach var="genre" items="${heroMovie.genre}">
+                            <span class="genre">${genre}</span>
+                        </c:forEach>
+                    </div>
+                    <div class="buttons">
+                        <a href="${pageContext.request.contextPath}/moviedetails?movieId=${heroMovie.id}" class="book-now">Movie Details</a>
+                        <a href="${heroMovie.trailarUrl}" class="watch-trailer">Watch Trailer</a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </section>
+
+
+
+
+
 
     <!-- Now Available Section -->
     <section class="now-available">
         <div class="section-header">
             <h2>Now Available</h2>
-            <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            <a href="${pageContext.request.contextPath}/movies" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
-        <!-- Repeated movie cards can be added here -->
-
-            <div class="movie-grid">
+        <div class="movie-grid">
+            <c:forEach var="movie" items="${movies}" begin="1" end="3">
                 <div class="movie-card">
-                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
+                    <img src="${movie.imageUrl}" alt="${movie.title}"/>
                     <div class="movie-card-info">
-                        <h3>Thor Love & Thunder</h3>
+                        <h3>${movie.title}</h3>
                         <div class="movie-meta">
-                            <span>2021</span>
-                            <span class="age-rating">18+</span>
-                            <span class="rating">★ 7.9</span>
+                            <span>${movie.status}</span>
+                            <span class="age-rating">${movie.ageRange}</span>
+                            <span class="rating">★ ${movie.rating}</span>
                         </div>
                         <div class="buttons">
-                            <a href="#" class="book-now">Book now</a>
-                            <a href="#" class="watch-trailer">Watch Trailer</a>
+                            <a href="${pageContext.request.contextPath}/moviedetails?movieId=${movie.id}" class="book-now">Movie Details</a>
+                            <a href="${movie.trailarUrl}" class="watch-trailer">Watch Trailer</a>
                         </div>
                     </div>
                 </div>
-                <div class="movie-card">
-                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
-                    <div class="movie-card-info">
-                        <h3>Thor Love & Thunder</h3>
-                        <div class="movie-meta">
-                            <span>2021</span>
-                            <span class="age-rating">18+</span>
-                            <span class="rating">★ 7.9</span>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="book-now">Book now</a>
-                            <a href="#" class="watch-trailer">Watch Trailer</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <img src="https://i.ibb.co/kBLD9Jg/Rectangle-9-2.png" alt="Thor Love & Thunder"/>
-                    <div class="movie-card-info">
-                        <h3>Thor Love & Thunder</h3>
-                        <div class="movie-meta">
-                            <span>2021</span>
-                            <span class="age-rating">18+</span>
-                            <span class="rating">★ 7.9</span>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="book-now">Book now</a>
-                            <a href="#" class="watch-trailer">Watch Trailer</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
+            </c:forEach>
+        </div>
     </section>
+
 
     <!-- About Section -->
     <section class="about-section">

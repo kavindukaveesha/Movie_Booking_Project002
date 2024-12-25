@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,7 +178,7 @@
 
         .hero {
             padding: 50px;
-            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('https://i.ibb.co/0tHg0ST/image-1-1-2.png');
+            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('${heroMovie.imageUrl}');
             background-size: cover;
         }
         .hero-content {
@@ -282,19 +283,61 @@
         <jsp:include page="/components/client-navbar.jsp" />
     </nav>
 
-
     <!-- Hero Section -->
-    <section>
-        <jsp:include page="/components/homepage-hero-section.jsp" />
+    <section class="hero">
+        <c:forEach var="heroMovie" items="${movies}" begin="0" end="0">
+            <div class="hero-content">
+                <div class="movie-poster">
+                    <img src="../../DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster"/>
+                </div>
+                <div class="movie-info">
+                    <h1 class="movie-title">${heroMovie.title}</h1>
+                    <p class="movie-description">${heroMovie.description}</p>
+                    <div class="movie-meta">
+                        <span>${heroMovie.status}</span>
+                        <span class="age-rating">${heroMovie.ageRange}</span>
+                        <span class="rating">★ ${heroMovie.rating}</span>
+                        <c:forEach var="genre" items="${heroMovie.genre}">
+                            <span class="genre">${genre}</span>
+                        </c:forEach>
+                    </div>
+                    <div class="buttons">
+                        <a href="${pageContext.request.contextPath}/moviedetails?movieId=${heroMovie.id}" class="book-now">Movie Details</a>
+                        <a href="${heroMovie.trailarUrl}" class="watch-trailer">Watch Trailer</a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </section>
 
+
+
+
+
+
+    <!-- Now Available Section -->
     <section class="now-available">
-        <div class="section-header">
-            <h2>All movies</h2>
-            <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        <div class="movie-grid">
+            <c:forEach var="movie" items="${movies}" >
+                <div class="movie-card">
+                    <img src="${movie.imageUrl}" alt="${movie.title}"/>
+                    <div class="movie-card-info">
+                        <h3>${movie.title}</h3>
+                        <div class="movie-meta">
+                            <span>${movie.status}</span>
+                            <span class="age-rating">${movie.ageRange}</span>
+                            <span class="rating">★ ${movie.rating}</span>
+                        </div>
+                        <div class="buttons">
+                            <a href="${pageContext.request.contextPath}/moviedetails?movieId=${movie.id}" class="book-now">Movie Details</a>
+                            <a href="${movie.trailarUrl}" class="watch-trailer">Watch Trailer</a>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
-        <!-- Repeated movie cards can be added here -->
     </section>
+
 
 
 

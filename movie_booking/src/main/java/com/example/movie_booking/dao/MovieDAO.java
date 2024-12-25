@@ -163,4 +163,60 @@ public class MovieDAO {
         return isUpdated;
     }
 
+
+
+    //---------------------------------- Fetch movies by status------------------------------------------
+    public List<Movie> getMoviesByStatus(String status) {
+        List<Movie> movies = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Get a connection to the database
+            connection = DBConnection.getConnection();
+
+            // Prepare SQL query
+            String sql = "SELECT * FROM movie WHERE status = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, status);
+
+            // Execute the query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movie.setDescription(resultSet.getString("description"));
+                movie.setLanguage(resultSet.getString("language"));
+                movie.setAgeRange(resultSet.getString("age_range"));
+                movie.setImageUrl(resultSet.getString("image_url"));
+                movie.setRating(resultSet.getDouble("rating"));
+                movie.setTrailarUrl(resultSet.getString("trailar_url"));
+                movie.setPrice(resultSet.getDouble("price"));
+                movie.setStatus(resultSet.getString("status"));
+
+                // Convert genres (PostgreSQL text[] to List<String>)
+                String[] genresArray = (String[]) resultSet.getArray("genre").getArray();
+                movie.setGenre(List.of(genresArray));
+
+                movies.add(movie);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return movies;
+    }
+
 }

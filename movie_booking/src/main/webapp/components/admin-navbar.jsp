@@ -15,7 +15,11 @@
 <nav class="w-1/7 p-1">
     <ul>
         <li class="mb-4">
+
             <a href="<%= request.getContextPath() %>/admin/movie-management" class="nav-link block py-4 px-7 bg-gray-200 colorButton" align="center">Movies</a>
+
+            <a href="${pageContext.request.contextPath}/movies" class="nav-link block py-4 px-7 bg-gray-200 colorButton" align="center">Movies</a>
+
         </li>
         <li class="mb-4">
             <a href="reservation.jsp" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Reservations</a>
