@@ -1,4 +1,5 @@
 <%@ page import="com.example.movie_booking.model.User" %>
+<%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">

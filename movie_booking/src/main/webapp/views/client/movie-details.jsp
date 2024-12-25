@@ -191,7 +191,7 @@
 
                 <!-- Buttons for Booking and Watching Trailer -->
                 <div class="hero-buttons">
-                    <a href="seatbooking.html" class="book-now">Book now</a>
+                    <a href="${pageContext.request.contextPath}/book-now?id=${movie.id}" class="book-now">Book now</a>
                     <a href="${movie.trailarUrl}" class="watch-trailer" target="_blank">Watch Trailer</a>
                 </div>
 
