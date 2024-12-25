@@ -44,8 +44,8 @@ public class SeatBookingController extends HttpServlet {
             // Add booking details to the request scope
             request.setAttribute("bookingDetails", bookingDetails);
             // Redirect to the checkout page
-          //  RequestDispatcher dispatcher = request.getRequestDispatcher("/views/client/checkout.jsp");
-          //  dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/make-checkout");
+            dispatcher.forward(request, response);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
