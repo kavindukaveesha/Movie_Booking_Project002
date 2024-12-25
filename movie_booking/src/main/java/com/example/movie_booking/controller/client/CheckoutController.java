@@ -1,6 +1,5 @@
 package com.example.movie_booking.controller.client;
 
-import com.example.movie_booking.model.Booking;
 import com.example.movie_booking.service.BookingService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -13,11 +12,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import org.json.JSONObject;
 
-@WebServlet("/make-booking")
-public class BookingController extends HttpServlet {
+@WebServlet("/make-checkout")
+public class CheckoutController extends HttpServlet {
     private BookingService bookingService;
     private static final String STRIPE_SECRET_KEY = "sk_test_51QWv90HGW1CG3lRC61h8JAz0L2cuEYsEZKAEWM6lkhk5K3O6wyjPcuYoNxLkqm5LRAdg0GTmhhQVCTOpFQebSY5V00trOlUZyO";
 

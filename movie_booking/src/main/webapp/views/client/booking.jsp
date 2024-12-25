@@ -241,7 +241,7 @@
 
         <aside id="checkout-summary">
             <h2>Order Summary</h2>
-            <form action="<%=request.getContextPath()%>/make-booking" method="post" id="payment-form">
+            <form action="<%=request.getContextPath()%>/make-checkout" method="post" id="payment-form">
                 <div class="details">
                     <div class="row">
                         <span>Total</span>
@@ -282,7 +282,7 @@
             document.getElementById('submit-button').disabled = true;
 
             // Submit form to create checkout session
-            fetch('<%=request.getContextPath()%>/make-booking', {
+            fetch('<%=request.getContextPath()%>/make-checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
