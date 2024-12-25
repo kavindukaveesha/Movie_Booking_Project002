@@ -67,11 +67,18 @@
                         <c:forEach items="${bookings}" var="booking">
                             <tr>
                                 <td>${booking.bookingId}</td>
-                                <td>${booking.userFullName} (${booking.userEmail})</td>
+                                <td>${booking.userId}</td>
                                 <td>${booking.movieName}</td>
                                 <td>${booking.date}</td>
                                 <td>${booking.time}</td>
-                                <td>${fn:join(booking.seatNumbers, ', ')}</td>
+                                <!-- Debug to check type and content -->
+                                <td>
+                                  
+                                    <c:out value="${booking.seatNumbers}"/>
+                                </td>
+
+
+
                                 <td>${booking.totalPrice}</td>
                             </tr>
                         </c:forEach>
