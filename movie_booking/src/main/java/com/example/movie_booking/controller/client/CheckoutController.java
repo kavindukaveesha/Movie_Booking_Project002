@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -29,66 +30,62 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/views/client/booking.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Map<String, Object> bookingDetails = (Map<String, Object>) session.getAttribute("bookingDetails");
+        if (bookingDetails != null) {
+            // Process the booking details
+            request.setAttribute("bookingDetails", bookingDetails);
+        }
+        request.getRequestDispatcher("/views/client/checkout.jsp").forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String mobile = request.getParameter("mobile");
+        int amount;
+
         try {
-            // Get form data
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String mobile = request.getParameter("mobile");
-            int amount = (int)(Double.parseDouble(request.getParameter("totalAmount")));
+            amount = (int)(Double.parseDouble(request.getParameter("totalAmount")) * 100); // Convert to cents
 
             // Create Stripe Checkout Session
-            SessionCreateParams.Builder builder = SessionCreateParams.builder()
+            SessionCreateParams sessionParams = SessionCreateParams.builder()
                     .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl(request.getScheme() + "://" +
-                            request.getServerName() + ":" +
-                            request.getServerPort() +
-                            request.getContextPath() + "/booking-success")
-                    .setCancelUrl(request.getScheme() + "://" +
-                            request.getServerName() + ":" +
-                            request.getServerPort() +
-                            request.getContextPath() + "/booking-cancel")
-                    .addLineItem(SessionCreateParams.LineItem.builder()
-                            .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
-                                    .setCurrency("inr")
-                                    .setUnitAmount((long) amount * 100) // Convert to cents
-                                    .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                            .setName("Movie Tickets")
-                                            .setDescription("Booking for " + fullName)
-                                            .build())
+                    .setSuccessUrl(request.getScheme() + "://" + request.getServerName() + ":" +
+                            request.getServerPort() + request.getContextPath() + "/booking-success?session_id={CHECKOUT_SESSION_ID}")
+                    .setCancelUrl(request.getScheme() + "://" + request.getServerName() + ":" +
+                            request.getServerPort() + request.getContextPath() + "/booking-cancel")
+                    .addLineItem(
+                            SessionCreateParams.LineItem.builder()
+                                    .setPriceData(
+                                            SessionCreateParams.LineItem.PriceData.builder()
+                                                    .setCurrency("usd")
+                                                    .setUnitAmount((long) amount)
+                                                    .setProductData(
+                                                            SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                                    .setName("Movie Tickets for " + fullName)
+                                                                    .setDescription("Booking for " + fullName)
+                                                                    .build())
+                                                    .build())
+                                    .setQuantity(1L)
                                     .build())
-                            .setQuantity(1L)
-                            .build());
+                    .build();
 
-            // Create the Checkout Session
-            Session session = Session.create(builder.build());
-
-            // Store booking details in session for later
+            Session session = Session.create(sessionParams);
             HttpSession httpSession = request.getSession();
-            httpSession.setAttribute("pendingBookingDetails", new JSONObject()
+            httpSession.setAttribute("bookingDetails", new JSONObject()
                     .put("fullName", fullName)
                     .put("email", email)
                     .put("mobile", mobile)
-                    .put("amount", amount)
+                    .put("amount", amount / 100) // Store in standard currency format
                     .put("stripeSessionId", session.getId())
                     .toString());
 
-            // Return session ID to client
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(new JSONObject()
-                    .put("id", session.getId())
-                    .toString());
+            // Redirect to Stripe Checkout
+            response.sendRedirect(session.getUrl());
 
-        } catch (NumberFormatException | NullPointerException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid amount or missing information.");
-        } catch (StripeException e) {
-            throw new ServletException("Payment processing error", e);
+        } catch (NumberFormatException | StripeException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Failed to process payment: " + e.getMessage());
         }
-    }
-}
+    }}

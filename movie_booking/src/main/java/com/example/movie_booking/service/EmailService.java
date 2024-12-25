@@ -1,6 +1,7 @@
 package com.example.movie_booking.service;
 
 import com.example.movie_booking.utils.EmailUtility;
+import org.json.JSONObject;
 
 public class EmailService {
 
@@ -20,11 +21,15 @@ public class EmailService {
     }
 
     // Method to send booking confirmation email
-    public void sendBookingConfirmationEmail(String toAddress, String bookingDetails) throws Exception {
+    public void sendBookingConfirmationEmail(String toAddress, JSONObject bookingDetails) throws Exception {
         String subject = "Booking Confirmation";
+        // Ensure that the correct link is provided and the booking details are formatted correctly
         String message = getBookingEmailContent("Your Booking Confirmation", bookingDetails, "View Booking", "http://localhost:8080/demo/view-booking.html");
+
+        // Call your EmailUtility's sendEmail method
         EmailUtility.sendEmail(toAddress, subject, message);
     }
+
 
     // Method to send booking cancellation email
     public void sendBookingCancellationEmail(String toAddress, String bookingDetails) throws Exception {
@@ -57,7 +62,19 @@ public class EmailService {
     }
 
     // Helper method for booking email content
-    private String getBookingEmailContent(String title, String details, String actionText, String actionLink) {
+// Helper method for booking email content
+    private String getBookingEmailContent(String title, JSONObject bookingDetails, String actionText, String actionLink) {
+        // Extracting details from the JSON object
+        int bookingId = bookingDetails.getInt("bookingId");
+        String movieName = bookingDetails.getString("movieName");
+        String date = bookingDetails.getString("date");
+        String time = bookingDetails.getString("time");
+        double totalPrice = bookingDetails.getDouble("totalPrice");
+
+        // Format the booking details into a string
+        String details = String.format("Booking ID: %d<br>Movie: %s<br>Date: %s<br>Time: %s<br>Total Price: Rs. %.2f",
+                bookingId, movieName, date, time, totalPrice);
+
         return "<!DOCTYPE html>"
                 + "<html>"
                 + "<head>" + styleSheet() + "</head>"
@@ -68,15 +85,17 @@ public class EmailService {
                 + "            <p>Hello,</p>"
                 + "            <p>Thank you for your booking. Here are your booking details:</p>"
                 + "            <p>" + details + "</p>"
-                + "            <a href='" + actionLink + "'>" + actionText + "</a>"
+                + "            <a href='" + actionLink + "' style='padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;'>" + actionText + "</a>"
                 + "        </div>"
                 + "        <div class='email-footer'>"
-                + "            &copy; 2024 Your Company. All rights reserved."
+                + "            &copy; 2024 ABC Cinema. All rights reserved."
                 + "        </div>"
                 + "    </div>"
                 + "</body>"
                 + "</html>";
     }
+
+
 
     // Helper method for cancellation email content
     private String getCancellationEmailContent(String title, String details, String actionText, String actionLink) {

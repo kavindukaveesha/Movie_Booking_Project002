@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.net.URLDecoder"%>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -201,6 +202,18 @@
         }
     </style>
 </head>
+<%
+    session = request.getSession(false);
+    if (session == null || session.getAttribute("user") == null) {
+        response.sendRedirect(request.getContextPath() + "/auth/login");
+        return;
+    }
+    Map<String, Object> bookingDetails = (Map<String, Object>) session.getAttribute("bookingDetails");
+    if (bookingDetails == null) {
+        response.sendRedirect(request.getContextPath() + "/select-movie");
+        return;
+    }
+%>
 <body>
 
 <jsp:include page="/components/client-navbar.jsp"/>
@@ -210,47 +223,28 @@
     <div class="grid-container">
         <section class="form-section">
             <h2>Contact information</h2>
-            <%
-                Cookie[] cookies = request.getCookies();
-                String fullName = "", email = "", mobile = "";
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if ("fullName".equals(cookie.getName())) {
-                            fullName = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                        } else if ("email".equals(cookie.getName())) {
-                            email = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                        } else if ("mobile".equals(cookie.getName())) {
-                            mobile = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                        }
-                    }
-                }
-            %>
             <div class="input-group">
                 <i class="fas fa-user"></i>
-                <input type="text" id="fullName" name="fullName" placeholder="Full Name" value="<%= fullName %>" required>
+                <input type="text" id="fullName" name="fullName" placeholder="Full Name" value="<%= session.getAttribute("fullName") %>" required>
             </div>
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="Email" value="<%= email %>" required>
+                <input type="email" id="email" name="email" placeholder="Email" value="<%= session.getAttribute("email") %>" required>
             </div>
             <div class="input-group">
                 <i class="fas fa-phone"></i>
-                <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<%= mobile %>" required>
+                <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<%= session.getAttribute("mobile") %>" required>
             </div>
         </section>
-
         <aside id="checkout-summary">
             <h2>Order Summary</h2>
             <form action="<%=request.getContextPath()%>/make-checkout" method="post" id="payment-form">
                 <div class="details">
                     <div class="row">
                         <span>Total</span>
-                        <span id="total">Rs. 0</span>
+                        <span id="total">Rs. <%= bookingDetails.get("totalPrice") %></span>
                     </div>
-                    <input type="hidden" name="fullName" id="form-fullName">
-                    <input type="hidden" name="email" id="form-email">
-                    <input type="hidden" name="mobile" id="form-mobile">
-                    <input type="hidden" name="totalAmount" id="form-total" value="2000">
+                    <input type="hidden" name="totalAmount" value="<%= bookingDetails.get("totalPrice") %>">
                     <button type="submit" id="submit-button">Proceed to Payment</button>
                 </div>
             </form>
