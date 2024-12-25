@@ -1,5 +1,6 @@
 package com.example.movie_booking.service;
 
+import com.example.movie_booking.model.Booking;
 import com.example.movie_booking.utils.EmailUtility;
 import org.json.JSONObject;
 
@@ -21,20 +22,28 @@ public class EmailService {
     }
 
     // Method to send booking confirmation email
-    public void sendBookingConfirmationEmail(String toAddress, JSONObject bookingDetails) throws Exception {
+    public void sendBookingConfirmationEmail(String toAddress, Booking bookingDetails) throws Exception {
         String subject = "Booking Confirmation";
         // Ensure that the correct link is provided and the booking details are formatted correctly
         String message = getBookingEmailContent("Your Booking Confirmation", bookingDetails, "View Booking", "http://localhost:8080/demo/view-booking.html");
 
+        // Debugging statement to confirm method invocation and parameters
+        System.out.println("Sending email to: " + toAddress);
+        System.out.println("Email Subject: " + subject);
+        System.out.println("Email Message: " + message);
+
         // Call your EmailUtility's sendEmail method
         EmailUtility.sendEmail(toAddress, subject, message);
+
+        // Debugging statement to confirm that the email has been sent
+        System.out.println("Email sent successfully to: " + toAddress);
     }
 
 
     // Method to send booking cancellation email
-    public void sendBookingCancellationEmail(String toAddress, String bookingDetails) throws Exception {
+    public void sendBookingCancellationEmail(String toAddress) throws Exception {
         String subject = "Booking Cancellation";
-        String message = getCancellationEmailContent("Your Booking Cancellation", bookingDetails, "Contact Support", "http://localhost:8080/demo/contact-support.html");
+        String message = getCancellationEmailContent("Your Booking Cancellation","Contact Support", "http://localhost:8080/demo/contact-support.html");
         EmailUtility.sendEmail(toAddress, subject, message);
     }
 
@@ -63,13 +72,13 @@ public class EmailService {
 
     // Helper method for booking email content
 // Helper method for booking email content
-    private String getBookingEmailContent(String title, JSONObject bookingDetails, String actionText, String actionLink) {
+    private String getBookingEmailContent(String title, Booking bookingDetails, String actionText, String actionLink) {
         // Extracting details from the JSON object
-        int bookingId = bookingDetails.getInt("bookingId");
-        String movieName = bookingDetails.getString("movieName");
-        String date = bookingDetails.getString("date");
-        String time = bookingDetails.getString("time");
-        double totalPrice = bookingDetails.getDouble("totalPrice");
+        int bookingId = bookingDetails.getBookingId();
+        String movieName = bookingDetails.getMovieName();
+        String date = bookingDetails.getDate();
+        String time = bookingDetails.getTime();
+        double totalPrice = bookingDetails.getTotalPrice();
 
         // Format the booking details into a string
         String details = String.format("Booking ID: %d<br>Movie: %s<br>Date: %s<br>Time: %s<br>Total Price: Rs. %.2f",
@@ -98,7 +107,7 @@ public class EmailService {
 
 
     // Helper method for cancellation email content
-    private String getCancellationEmailContent(String title, String details, String actionText, String actionLink) {
+    private String getCancellationEmailContent(String title, String actionText, String actionLink) {
         return "<!DOCTYPE html>"
                 + "<html>"
                 + "<head>" + styleSheet() + "</head>"
@@ -108,7 +117,6 @@ public class EmailService {
                 + "        <div class='email-body'>"
                 + "            <p>Hello,</p>"
                 + "            <p>Your booking has been successfully canceled. Here are the details:</p>"
-                + "            <p>" + details + "</p>"
                 + "            <p>Your money will be automatically refunded within 5-7 business days.</p>"
                 + "            <a href='" + actionLink + "'>" + actionText + "</a>"
                 + "        </div>"

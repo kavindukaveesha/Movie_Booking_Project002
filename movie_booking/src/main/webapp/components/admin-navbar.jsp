@@ -20,7 +20,7 @@
 
         </li>
         <li class="mb-4">
-            <a href="reservation.jsp" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Reservations</a>
+            <a href="<%= request.getContextPath() %>/admin/movie-bookings" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Reservations</a>
         </li>
         <li class="mb-4">
             <a href="feedback.jsp" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Feedbacks</a>

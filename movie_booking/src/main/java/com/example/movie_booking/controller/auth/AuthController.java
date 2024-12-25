@@ -153,7 +153,6 @@ public class AuthController extends HttpServlet {
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                session.setAttribute("userId", user.getId());
 
                 session.setMaxInactiveInterval(3600); // one hour
                 // Redirect based on the user role

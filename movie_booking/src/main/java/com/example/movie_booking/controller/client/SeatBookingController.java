@@ -8,14 +8,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/seat-booking")
+@WebServlet("/seat-Booking")
 public class SeatBookingController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
         try {
+
             int movieId = Integer.parseInt(request.getParameter("movieId"));
             String showId = request.getParameter("showId");
             String showDate = request.getParameter("showDate");
@@ -23,6 +28,10 @@ public class SeatBookingController extends HttpServlet {
             String selectedSeats = request.getParameter("selectedSeats");
             double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
             String movieName = request.getParameter("movieName");
+
+            System.out.println(showTime);
+            System.out.println(selectedSeats);
+            System.out.println(movieName);
 
             Map<String, Object> bookingDetails = new HashMap<>();
             bookingDetails.put("movieId", movieId);
@@ -32,14 +41,15 @@ public class SeatBookingController extends HttpServlet {
             bookingDetails.put("selectedSeats", selectedSeats);
             bookingDetails.put("totalPrice", totalPrice);
 
+            // Add booking details to the request scope
             request.setAttribute("bookingDetails", bookingDetails);
-            RequestDispatcher dispatcher = request.getRequestDispatcher( request.getContextPath()+"/make-checkout");
-            dispatcher.forward(request, response);
+            // Redirect to the checkout page
+              RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+              dispatcher.forward(request, response);
 
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println(e.getMessage());
-            response.sendRedirect("error.jsp");
         }
+
     }
 }
-

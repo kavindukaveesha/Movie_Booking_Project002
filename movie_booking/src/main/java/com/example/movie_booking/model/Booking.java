@@ -1,7 +1,5 @@
 package com.example.movie_booking.model;
 
-
-import java.util.Date;
 import java.util.List;
 
 public class Booking {
@@ -10,10 +8,11 @@ public class Booking {
     private String movieName;
     private String date;
     private String time;
-    private List<Integer> seatNumbers;
+    private List<String> seatNumbers;
     private double totalPrice;
+    private int bookingId;  // New field
 
-    public Booking(int id, int userId, String movieName, String date, String time, List<Integer> seatNumbers, double totalPrice) {
+    public Booking(int id, int userId, String movieName, String date, String time, List<String> seatNumbers, double totalPrice, int bookingId) {
         this.id = id;
         this.userId = userId;
         this.movieName = movieName;
@@ -21,6 +20,7 @@ public class Booking {
         this.time = time;
         this.seatNumbers = seatNumbers;
         this.totalPrice = totalPrice;
+        this.bookingId = bookingId;  // Initialize the new field
     }
 
     // Getters and Setters
@@ -39,9 +39,12 @@ public class Booking {
     public String getTime() { return time; }
     public void setTime(String time) { this.time = time; }
 
-    public List<Integer> getSeatNumbers() { return seatNumbers; }
-    public void setSeatNumbers(List<Integer> seatNumbers) { this.seatNumbers = seatNumbers; }
+    public List<String> getSeatNumbers() { return seatNumbers; }
+    public void setSeatNumbers(List<String> seatNumbers) { this.seatNumbers = seatNumbers; }
 
     public double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
+
+    public int getBookingId() { return bookingId; }
+    public void setBookingId(int bookingId) { this.bookingId = bookingId; }
 }

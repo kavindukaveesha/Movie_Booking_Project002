@@ -79,16 +79,18 @@
         }
     </style>
 
-    </style>
+
 </head>
+
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
+
 <header class="text-white items-center p-3">
     <img alt="logo.png" class="mr-2 h-20" src="./logo3.png"/>
 </header>
 
-<div class="flex flex-1">
+
     <!-- Include Navigation Bar -->
-    <jsp:include page="./admin-navbar/navbar.jsp"/>
+    <div class="flex flex-1">
 
     <!-- Main Content -->
     <aside class="w-5/6 bg-gray-300 p-6">
@@ -156,6 +158,7 @@
         </main>
     </aside>
 </div>
+
 </body>
 </html>
 

@@ -309,7 +309,8 @@
     </div>
 
     <!-- Form for Submission -->
-    <form id="bookingForm" action="${pageContext.request.contextPath}/seat-Booking" method="POST">
+    <form id="bookingForm" action="${pageContext.request.contextPath}/make-checkout" method="POST">
+        <input type="hidden" name="action" value="make-checkout">
         <input type="hidden" name="movieName" value="${movie.title}">
         <input type="hidden" name="movieId" value="${movie.id}">
         <input type="hidden" name="showId" id="showIdField">

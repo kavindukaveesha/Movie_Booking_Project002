@@ -87,6 +87,27 @@
         .dropdown-content a:hover {
             background-color: #f1f1f1;
         }
+        .cancel-booking-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            color: white;
+            background-color: #ff4d4d; /* Red background for cancellation */
+            border-radius: 5px;
+            text-decoration: none; /* Remove underline */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+            font-size: 16px; /* Adjust font size as needed */
+            align-items: center; /* Align icon and text */
+            margin-right: 30px;
+        }
+
+        .cancel-booking-btn i {
+            margin-right: 5px; /* Space between icon and text */
+        }
+
+        .cancel-booking-btn:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
     </style>
 </head>
 <body>
@@ -126,13 +147,18 @@
         <div class="search">
             <i class="fas fa-search"></i>
         </div>
-        <div class="booking">
-            <i class="fas fa-ticket-alt"></i>
-        </div>
+
         <% if (user != null) { %>
+
+        <!-- Link with icon for Cancel Booking -->
+        <a href="<%= request.getContextPath() %>/cancel-booking" class="cancel-booking-btn">
+            <i class="fas fa-times-circle"></i> My Booking
+        </a>
+
+
         <div class="dropdown">
             <span><%= user.getFullName() %></span>
-            <i class="fas fa-chevron-down"></i>
+
             <div class="dropdown-content">
                 <a href="<%= request.getContextPath() %>/logout">Sign Out</a>
             </div>

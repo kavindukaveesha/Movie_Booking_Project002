@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.net.URLDecoder"%>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.example.movie_booking.model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -208,11 +209,18 @@
         response.sendRedirect(request.getContextPath() + "/auth/login");
         return;
     }
-    Map<String, Object> bookingDetails = (Map<String, Object>) session.getAttribute("bookingDetails");
+    User user = (User) session.getAttribute("user");
+    Map<String, Object> bookingDetails = (Map<String, Object>) request.getAttribute("bookingDetails");
     if (bookingDetails == null) {
         response.sendRedirect(request.getContextPath() + "/select-movie");
         return;
     }
+    // Store bookingDetails in session
+    session.setAttribute("bookingDetails", bookingDetails);
+
+
+
+
 %>
 <body>
 
@@ -225,29 +233,30 @@
             <h2>Contact information</h2>
             <div class="input-group">
                 <i class="fas fa-user"></i>
-                <input type="text" id="fullName" name="fullName" placeholder="Full Name" value="<%= session.getAttribute("fullName") %>" required>
+                <input type="text" id="fullName" name="fullName" placeholder="Full Name" value="<%= user.getFullName()%>" required>
             </div>
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="Email" value="<%= session.getAttribute("email") %>" required>
+                <input type="email" id="email" name="email" placeholder="Email" value="<%= user.getEmail()%>" required>
             </div>
             <div class="input-group">
                 <i class="fas fa-phone"></i>
-                <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<%= session.getAttribute("mobile") %>" required>
+                <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<%= user.getMobile() %>" required>
             </div>
         </section>
         <aside id="checkout-summary">
             <h2>Order Summary</h2>
-            <form action="<%=request.getContextPath()%>/make-checkout" method="post" id="payment-form">
+            <form id="bookingForm" action="${pageContext.request.contextPath}/checkout-method" method="post">
+                <input type="hidden" name="action" value="checkout-method">
                 <div class="details">
                     <div class="row">
                         <span>Total</span>
-                        <span id="total">Rs. <%= bookingDetails.get("totalPrice") %></span>
+                        <span id="total">Rs."/></span>
                     </div>
-                    <input type="hidden" name="totalAmount" value="<%= bookingDetails.get("totalPrice") %>">
                     <button type="submit" id="submit-button">Proceed to Payment</button>
                 </div>
             </form>
+
         </aside>
     </div>
 </main>
@@ -276,7 +285,7 @@
             document.getElementById('submit-button').disabled = true;
 
             // Submit form to create checkout session
-            fetch('<%=request.getContextPath()%>/make-checkout', {
+            fetch('<%=request.getContextPath()%>/checkout-method', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -305,7 +314,7 @@
 
     function updateTotals() {
         var totalElement = document.getElementById('total');
-        var subtotal = 2000; // Get this from your session or calculation
+        var subtotal =<%= bookingDetails.get("totalPrice") %>
         var bookingFee = 20;
         var total = subtotal + bookingFee;
         totalElement.innerHTML = 'Rs. ' + total;

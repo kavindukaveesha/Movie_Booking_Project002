@@ -55,9 +55,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>Booking Confirmed!</h1>
-    <p>Your booking has been successfully processed.</p>
-    <p>You have received an email with the details of your booking.</p>
+    <h1>Booking Cancel!</h1>
+    <p>Your booking has been successfully Canceled.</p>
+    <p>You have received an email for more details.</p>
     <a href="${pageContext.request.contextPath}/home" class="button">Return to Home</a>
 </div>
 </body>
