@@ -12,14 +12,8 @@ import java.util.Map;
 public class SeatBookingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("userId");
 
-        if (userId == null) {
-            // Handle not logged in scenario
-            response.sendRedirect("auth/login");
-            return;
-        }
+
 
         try {
             int movieId = Integer.parseInt(request.getParameter("movieId"));
@@ -31,7 +25,6 @@ public class SeatBookingController extends HttpServlet {
             String movieName = request.getParameter("movieName");
 
             Map<String, Object> bookingDetails = new HashMap<>();
-            bookingDetails.put("userId", userId);
             bookingDetails.put("movieId", movieId);
             bookingDetails.put("showId", showId);
             bookingDetails.put("showDate", showDate);
@@ -40,7 +33,7 @@ public class SeatBookingController extends HttpServlet {
             bookingDetails.put("totalPrice", totalPrice);
 
             request.setAttribute("bookingDetails", bookingDetails);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/make-checkout");
+            RequestDispatcher dispatcher = request.getRequestDispatcher( request.getContextPath()+"/make-checkout");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {

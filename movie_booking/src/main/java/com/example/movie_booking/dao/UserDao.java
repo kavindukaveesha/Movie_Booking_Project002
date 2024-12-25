@@ -143,7 +143,7 @@ public class UserDao {
     }
 
     public List<User> getAllUsers() {
-        String query = "SELECT * FROM Users";
+        String query = "SELECT * FROM users";
         List<User> users = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
