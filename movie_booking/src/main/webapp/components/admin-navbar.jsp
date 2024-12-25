@@ -31,6 +31,9 @@
         <li class="mb-4">
             <a href="<%= request.getContextPath() %>/admin/inquiries" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Inquiries</a>
         </li>
+        <li class="mb-4">
+            <a href="<%= request.getContextPath() %>/logout" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Logout</a>
+        </li>
     </ul>
 </nav>
 

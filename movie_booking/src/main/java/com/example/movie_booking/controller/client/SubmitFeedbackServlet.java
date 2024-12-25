@@ -75,7 +75,7 @@ public class SubmitFeedbackServlet extends HttpServlet {
             session.setAttribute("message", "Thank you for your feedback!");
 
 
-            request.getRequestDispatcher("/views/client/feedback-success.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/client/feedback.jsp").forward(request, response);
 
 
         } catch (Exception e) {

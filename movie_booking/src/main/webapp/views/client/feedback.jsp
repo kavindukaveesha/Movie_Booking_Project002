@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -297,6 +298,25 @@
             width: 100%;
             padding: 0 10px;
         }
+        /* Styles for success and error messages */
+        .alert {
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 5px;
+            max-width: 600px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
 
     </style>
 </head>
@@ -307,7 +327,13 @@
     <nav>
         <jsp:include page="/components/client-navbar.jsp" />
     </nav>
-
+    <!-- Display success or error messages -->
+    <c:if test="${not empty message}">
+        <div class="alert alert-success">${message}</div>
+    </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert alert-error">${error}</div>
+    </c:if>
     <form class="feedback-form" action="SubmitFeedbackServlet" method="post">
         <div class="header-inputs">
             <div class="input-group">

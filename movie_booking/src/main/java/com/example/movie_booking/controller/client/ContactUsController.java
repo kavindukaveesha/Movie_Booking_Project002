@@ -20,14 +20,14 @@ public class ContactUsController extends HttpServlet {
     }
 
     // Display the contact form using doGet
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Forward to the contact-us.jsp page
         request.getRequestDispatcher("/views/client/contact-us.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json");
-
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String name = validateInput(request.getParameter("name"), "Name");
             String email = validateInput(request.getParameter("email"), "Email");
@@ -42,23 +42,20 @@ public class ContactUsController extends HttpServlet {
             contactMessage.setEmail(email);
             contactMessage.setMessage(message);
 
-            if(contactMessageService.saveContactMessage(contactMessage))
-            {
-                response.getWriter().write("{\"status\":\"success\",\"message\":\"Thank you for contacting us!\"}");
-            }else {
-                response.getWriter().write("{\"status\":\"Error\",\"message\":\"Error\"}");
-
+            // Save the message and set appropriate feedback
+            if (contactMessageService.saveContactMessage(contactMessage)) {
+                request.setAttribute("success", "Thank you for contacting us! We will get back to you shortly.");
+            } else {
+                request.setAttribute("error", "An error occurred while saving your message. Please try again later.");
             }
-
         } catch (IllegalArgumentException e) {
-            response.setStatus(400); // Bad Request
-            response.getWriter().write("{\"status\":\"error\",\"message\":\"" + e.getMessage() + "\"}");
+            request.setAttribute("error", e.getMessage());
         } catch (Exception e) {
-            System.err.println("Error in ContactSubmitServlet: " + e.getMessage());
-            e.printStackTrace();
-            response.setStatus(500);
-            response.getWriter().write("{\"status\":\"error\",\"message\":\"Server error occurred\"}");
+            request.setAttribute("error", "A server error occurred. Please try again later.");
         }
+
+        // Forward back to the contact-us.jsp page
+        request.getRequestDispatcher("/views/client/contact-us.jsp").forward(request, response);
     }
 
     private String validateInput(String input, String fieldName) {

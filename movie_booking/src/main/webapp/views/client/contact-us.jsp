@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,19 +269,19 @@
             background-color: #FFE44D;
         }
 
-        .error {
-            color: #ff6b6b;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .success {
-            color: #00ff88;
-            font-size: 14px;
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
             text-align: center;
-            margin-top: 15px;
-            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
@@ -295,107 +296,34 @@
     <div class="contact-container">
         <div class="contact-header">
             <h2>Contact Us</h2>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
         </div>
-        <form id="contactForm" novalidate>
+        <!-- Display success or error message -->
+        <c:if test="${not empty success}">
+            <div class="message success">${success}</div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="message error">${error}</div>
+        </c:if>
+        <form action="${pageContext.request.contextPath}/contact-us" method="post">
             <div class="form-group">
-                <input type="text" id="name" name="name" placeholder="Name" required>
-                <div class="error" id="nameError">Please enter your name</div>
+                <input type="text" name="name" placeholder="Name" required>
             </div>
-
             <div class="form-group">
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <div class="error" id="emailError">Please enter a valid email address</div>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
-
             <div class="form-group">
-                <textarea id="message" name="message" placeholder="Message" required></textarea>
-                <div class="error" id="messageError">Please enter your message</div>
+                <textarea name="message" placeholder="Message" required></textarea>
             </div>
-
             <button type="submit">Submit</button>
         </form>
-        <div class="success" id="successMessage"></div>
     </div>
-
 
     <footer>
         <jsp:include page="/components/client-footer.jsp" />
     </footer>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
 
-        function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId + 'Error');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-        }
-
-        function clearErrors() {
-            const errors = document.querySelectorAll('.error');
-            errors.forEach(error => error.style.display = 'none');
-        }
-
-        function validateEmail(email) {
-            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            clearErrors();
-
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            let isValid = true;
-
-            if (!name) {
-                showError('name', 'Please enter your name');
-                isValid = false;
-            }
-
-            if (!email) {
-                showError('email', 'Please enter your email');
-                isValid = false;
-            } else if (!validateEmail(email)) {
-                showError('email', 'Please enter a valid email address');
-                isValid = false;
-            }
-
-            if (!message) {
-                showError('message', 'Please enter your message');
-                isValid = false;
-            }
-
-            if (isValid) {
-                form.reset();
-                successMessage.textContent = 'Thank you for your message!';
-                successMessage.style.display = 'block';
-
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 5000);
-            }
-        });
-
-        const inputs = form.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                const errorElement = document.getElementById(this.id + 'Error');
-                if (errorElement) {
-                    errorElement.style.display = 'none';
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>
 
