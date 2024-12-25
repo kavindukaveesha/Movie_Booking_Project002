@@ -40,15 +40,15 @@
     <img alt="logo.png" class="mr-2 h-20" src="https://i.ibb.co/XDWNCbt/image.png"/>
 </header>
 
-<div class="flex flex-1">
+<div class="flex flex-1" >
     <!-- Include Navigation Bar -->
 
     <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
-    <main class="w-5/6 bg-gray-300 p-2">
+    <main class="w-5/6 bg-gray-300 p-2"style="height:80vh">
         <h2 class="text-2xl font-bold mb-12">Bookings</h2>
-        <div class="bg-gray-200 p-6 py-4">
+        <div class="bg-gray-200 p-6 py-4" style="height: 65vh;overflow-y: auto ">
             <c:choose>
                 <c:when test="${not empty bookings}">
                     <table class="w-full text-left border-collapse">

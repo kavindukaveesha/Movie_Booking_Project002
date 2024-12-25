@@ -53,7 +53,7 @@
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
 <header class="text-white items-center p-3">
-    <img alt="logo.png" class="mr-2 h-20" src="logo/logo3.png"/>
+    <img alt="logo.png" class="mr-2 h-20" src="https://i.ibb.co/XDWNCbt/image.png"/>
 </header>
 
 <div class="flex flex-1">
@@ -61,12 +61,12 @@
     <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
-    <aside class="w-5/6 bg-gray-300 p-6">
+    <aside class="w-5/6 bg-gray-300 p-6"style="height:80vh">
         <main class="w-full">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Show Details</h2>
             </div>
-            <div class="bg-gray-200 p-4 rounded">
+            <div class="bg-gray-200 p-4 rounded"style="height: 65vh;overflow-y: auto ">
                 <table class="w-full text-left border-collapse">
                     <thead>
                     <tr>

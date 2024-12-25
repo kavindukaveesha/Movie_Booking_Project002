@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,16 +90,16 @@
 </head>
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
 <header class="text-white items-center p-3">
-    <img alt="logo.png" class="mr-2 h-20" src="./logo3.png"/>
+    <img alt="logo.png" class="mr-2 h-20" src="https://i.ibb.co/XDWNCbt/image.png"/>
 </header>
 
-<div class="flex flex-1">
+<div class="flex flex-1" >
     <!-- Include Navigation Bar -->
     <jsp:include page="/components/admin-navbar.jsp"/>
 
     <!-- Main Content -->
-    <aside class="w-5/6 bg-gray-300 p-6">
-        <main class="w-full">
+    <aside class="w-5/6 bg-gray-300 p-6" style="height:80vh">
+        <main class="w-full" style="height: 75vh;overflow-y: auto ">
             <h2 class="text-2xl font-bold mb-6">Movie Details</h2>
             <c:if test="${not empty error}">
                 <div class="error-message">

@@ -4,6 +4,7 @@ import com.example.movie_booking.dao.ContactUsDAO;
 import com.example.movie_booking.model.ContactMessage;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ContactMessageService {
 
@@ -34,5 +35,9 @@ public class ContactMessageService {
         if (message.getMessage() == null || message.getMessage().trim().isEmpty()) {
             throw new IllegalArgumentException("Message is required");
         }
+    }
+
+    public List<ContactMessage> getAllContactMessages() throws SQLException {
+        return contactMessageDAO.getAllContactMessages();
     }
 }

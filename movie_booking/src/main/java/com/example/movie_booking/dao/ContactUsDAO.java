@@ -5,7 +5,12 @@ import com.example.movie_booking.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ContactUsDAO {
 
@@ -14,7 +19,7 @@ public class ContactUsDAO {
     }
 
     public void saveContactMessage(ContactMessage contactMessage) throws SQLException {
-        String query = "INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)";
+        String query = "INSERT INTO contactMessage (name, email, message) VALUES (?, ?, ?)";
 
         // Use try-with-resources to ensure proper closure of resources
         try (Connection connection = DBConnection.getConnection();
@@ -39,5 +44,31 @@ public class ContactUsDAO {
         } catch (Exception e) {
             throw new RuntimeException("Failed to establish database connection.", e);
         }
+    }
+
+    public List<ContactMessage> getAllContactMessages() throws SQLException {
+        List<ContactMessage> messages = new ArrayList<>();
+        String query = "SELECT id, name, email, message FROM contactMessage ORDER BY id DESC";
+
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                ContactMessage message = new ContactMessage();
+                message.setId(resultSet.getInt("id"));
+                message.setName(resultSet.getString("name"));
+                message.setEmail(resultSet.getString("email"));
+                message.setMessage(resultSet.getString("message"));
+                messages.add(message);
+            }
+        }
+        catch (SQLException e) {
+            System.err.println("Database error while retrieving: " + e.getMessage());
+            throw new SQLException("Failed to retrieve contact messages: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to establish database connection.", e);
+        }
+        return messages;
     }
 }

@@ -1,17 +1,34 @@
 package com.example.movie_booking.model;
 
+import java.sql.Timestamp;
+
 public class Feedback {
 
+    private int id;
     private String name;
     private String email;
-    private int experience;
-    private int ticketEase;
-    private int paymentEase;
-    private int cleanliness;
-    private int soundQuality;
-    private int staffExperience;
+    private int[] experience;
+    private int[] ticketEase;
+    private int[] payments;
+    private int[] cleanliness;
+    private int[] quality;
+    private int[] staff;
     private String suggestions;
+    private int totalSelections;
+    private int totalRate;
+    private Timestamp submissionDate;
 
+
+    // ID
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Name
     public String getName() {
         return name;
     }
@@ -20,6 +37,7 @@ public class Feedback {
         this.name = name;
     }
 
+    // Email
     public String getEmail() {
         return email;
     }
@@ -28,59 +46,92 @@ public class Feedback {
         this.email = email;
     }
 
-    public int getExperience() {
+    // Experience
+    public int[] getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(int[] experience) {
         this.experience = experience;
     }
 
-    public int getTicketEase() {
+    // Ticket Ease
+    public int[] getTicketEase() {
         return ticketEase;
     }
 
-    public void setTicketEase(int ticketEase) {
+    public void setTicketEase(int[] ticketEase) {
         this.ticketEase = ticketEase;
     }
 
-    public int getPaymentEase() {
-        return paymentEase;
+    // Payments
+    public int[] getPayments() {
+        return payments;
     }
 
-    public void setPaymentEase(int paymentEase) {
-        this.paymentEase = paymentEase;
+    public void setPayments(int[] payments) {
+        this.payments = payments;
     }
 
-    public int getCleanliness() {
+    // Cleanliness
+    public int[] getCleanliness() {
         return cleanliness;
     }
 
-    public void setCleanliness(int cleanliness) {
+    public void setCleanliness(int[] cleanliness) {
         this.cleanliness = cleanliness;
     }
 
-    public int getSoundQuality() {
-        return soundQuality;
+    // Quality
+    public int[] getQuality() {
+        return quality;
     }
 
-    public void setSoundQuality(int soundQuality) {
-        this.soundQuality = soundQuality;
+    public void setQuality(int[] quality) {
+        this.quality = quality;
     }
 
-    public int getStaffExperience() {
-        return staffExperience;
+    // Staff
+    public int[] getStaff() {
+        return staff;
     }
 
-    public void setStaffExperience(int staffExperience) {
-        this.staffExperience = staffExperience;
+    public void setStaff(int[] staff) {
+        this.staff = staff;
     }
 
+    // Suggestions
     public String getSuggestions() {
         return suggestions;
     }
 
     public void setSuggestions(String suggestions) {
         this.suggestions = suggestions;
+    }
+
+
+    // Total Selections
+    public int getTotalSelections() {
+        return totalSelections;
+    }
+
+    public void setTotalSelections(int totalSelections) {
+        this.totalSelections = totalSelections;
+    }
+
+    public int getTotalRate() {
+        return totalRate;
+    }
+
+    public void setTotalRate(int totalRate) {
+        this.totalRate = totalRate;
+    }
+
+    public Timestamp getSubmissionDate() {
+        return submissionDate;
+    }
+
+    public void setSubmissionDate(Timestamp submissionDate){
+        this.submissionDate = submissionDate;
     }
 }

@@ -23,13 +23,13 @@
             <a href="<%= request.getContextPath() %>/admin/movie-bookings" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Reservations</a>
         </li>
         <li class="mb-4">
-            <a href="feedback.jsp" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Feedbacks</a>
+            <a href="<%= request.getContextPath() %>/admin/feedbacks" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Feedbacks</a>
         </li>
         <li class="mb-4">
             <a href="<%= request.getContextPath() %>/admin/user-management" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Users</a>
         </li>
         <li class="mb-4">
-            <a href="inquiries.jsp" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Inquiries</a>
+            <a href="<%= request.getContextPath() %>/admin/inquiries" class="nav-link block py-4 px-9 bg-gray-200 colorButton" align="center">Inquiries</a>
         </li>
     </ul>
 </nav>

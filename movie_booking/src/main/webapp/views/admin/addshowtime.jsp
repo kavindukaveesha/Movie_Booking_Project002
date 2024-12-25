@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,15 +86,15 @@
 <body class="bg-gradient-to-b from-black to-purple-900 min-h-screen flex flex-col">
 
 <header class="text-white items-center p-3">
-    <img alt="logo.png" class="mr-2 h-20" src="./logo3.png"/>
+    <img alt="logo.png" class="mr-2 h-20" src="https://i.ibb.co/XDWNCbt/image.png"/>
 </header>
 
 
     <!-- Include Navigation Bar -->
     <div class="flex flex-1">
-
+        <jsp:include page="/components/admin-navbar.jsp"/>
     <!-- Main Content -->
-    <aside class="w-5/6 bg-gray-300 p-6">
+    <aside class="w-5/6 bg-gray-300 p-6" style="height: 80vh">
         <main class="w-full">
             <h2 class="text-2xl font-bold mb-6">Add Showtime</h2>
 
@@ -111,7 +112,7 @@
             %>
 
 
-            <div class="form-container">
+            <div class="form-container" style="height: 65vh;overflow-y: auto ">
                 <form action="${pageContext.request.contextPath}/admin/movie-management" method="post">
                     <!-- Hidden Movie ID -->
                     <%
