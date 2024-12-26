@@ -219,4 +219,24 @@ public class MovieDAO {
         return movies;
     }
 
+
+
+    // ----------------------------------- Movie Delete ------------------------------------
+    public boolean deleteMovie(int movieId) throws SQLException {
+        String deleteQuery = "DELETE FROM movie WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteQuery)) {
+            stmt.setInt(1, movieId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
 }

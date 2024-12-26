@@ -3,6 +3,7 @@ package com.example.movie_booking.service;
 import com.example.movie_booking.dao.ShowtimeDAO;
 import com.example.movie_booking.model.Showtime;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ShowtimeService {
@@ -19,5 +20,17 @@ public class ShowtimeService {
     public List<Showtime> getAllShows(int id){
         return showtimeDAO.fetchShowsByMovieId(id);
     }
+
+
+    //----------------- delete show time show id ----------
+    public boolean deleteShowtime(int showId) {
+        try {
+            return showtimeDAO.deleteShowtime(showId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

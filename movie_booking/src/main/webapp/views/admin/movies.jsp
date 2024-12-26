@@ -89,7 +89,17 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <!-- Example rows (replace with dynamic data as needed) -->
+                    <c:if test="${not empty successMessage}">
+                        <div class="alert alert-success">${successMessage}</div>
+                    </c:if>
+
+                    <c:if test="${not empty errorMessage}">
+                        <div class="alert alert-danger">${errorMessage}</div>
+                    </c:if>
+
+
 
                     <c:forEach var="movie" items="${movies}">
                         <tr>
@@ -118,9 +128,12 @@
                                 <a href="${pageContext.request.contextPath}/admin/movie-management?action=updateForm&movieId=${movie.id}" class="action-btn bg-blue-500 text-white">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                <a href="deletemovie?action=delete&movieId=${movie.id}" class="action-btn bg-red-500 text-white">
+                                <a href="javascript:void(0);"
+                                   onclick="if(confirm('Are you sure you want to delete this movie and all its showtimes?')) { window.location.href = '${pageContext.request.contextPath}/admin/movie-management?action=deleteMovie&movieId=${movie.id}'; }"
+                                   class="action-btn bg-red-500 text-white">
                                     <i class="fas fa-trash"></i>
                                 </a>
+
                             </td>
                         </tr>
                     </c:forEach>
@@ -157,8 +170,11 @@
                         </td>
                     </tr>
 
+
+
                     <!-- Repeat for more rows -->
                     </tbody>
+
                 </table>
             </div>
         </main>

@@ -3,10 +3,7 @@ package com.example.movie_booking.dao;
 import com.example.movie_booking.model.Showtime;
 import com.example.movie_booking.utils.DBConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +57,37 @@ public class ShowtimeDAO {
         }
 
         return showtimes;
+    }
+
+
+
+    // ----------------------------- Delete Shows by show id -----------------------------
+    public boolean deleteShowtimesByMovieId(int movieId) throws SQLException {
+        String deleteQuery = "DELETE FROM showtime WHERE movie_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteQuery)) {
+            stmt.setInt(1, movieId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //-------------------------Delete Show time --------------------
+    public boolean deleteShowtime(int showId) throws SQLException {
+        String deleteQuery = "DELETE FROM showtime WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteQuery)) {
+            stmt.setInt(1, showId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

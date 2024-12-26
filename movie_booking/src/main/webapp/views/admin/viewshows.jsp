@@ -86,8 +86,10 @@
                         <td class="border py-2 px-4">${show.date}</td>
                         <td class="border py-2 px-4">${show.time}</td>
                         <td class="border py-2 px-4">
-                            <a href="${pageContext.request.contextPath}/admin/movie-management?action=deleteShow&showId=${show.id}"  class="action-btn bg-red-500 text-white">
-                                <i class="fas fa-trash"></i>
+                            <a href="javascript:void(0);"
+                               onclick="if(confirm('Are you sure you want to delete this showtime?')) { window.location.href = '${pageContext.request.contextPath}/admin/movie-management?action=deleteShowtime&showId=${show.id}'; }"
+                               class="action-btn bg-red-500 text-white">
+                                <i class="fas fa-trash"></i> Delete
                             </a>
                         </td>
                     </tr>

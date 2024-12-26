@@ -51,6 +51,13 @@ public class MovieManagementController extends HttpServlet {
                 case "updateForm":
                     showUpdateForm(request, response);
                     break;
+                case "deleteMovie":
+                    deleteMovie(request, response);
+                    break;
+                case "deleteShowtime":
+                    deleteShowtime(request, response);
+                    break;
+
                 default:
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
             }
@@ -351,6 +358,75 @@ private void viewShows(HttpServletRequest request, HttpServletResponse response)
     }
     }
 
+
+    //------------------------------------------Delete Movie ------------------------------------------------
+    private void deleteMovie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the movieId parameter from the request
+        String movieIdParam = request.getParameter("movieId");
+
+        // Validate movieIdParam
+        if (movieIdParam == null || movieIdParam.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Movie ID is required and cannot be empty.");
+            return;
+        }
+
+        try {
+            // Parse movieId to integer
+            int movieId = Integer.parseInt(movieIdParam);
+
+            // Debugging - Log the movieId
+            System.out.println("Deleting movie with ID: " + movieId);
+
+            // Call the service to delete movie and its showtimes
+            boolean isDeleted = movieService.deleteMovieWithShowtimes(movieId);
+
+            // Handle success or failure
+            if (isDeleted) {
+                request.setAttribute("successMessage", "Movie and its showtimes deleted successfully.");
+                response.sendRedirect(request.getContextPath() + "/admin/movie-management?action=showMovies");
+            } else {
+                request.setAttribute("errorMessage", "Failed to delete the movie and its showtimes.");
+                response.sendRedirect(request.getContextPath() + "/admin/movie-management?action=showMovies");
+            }
+        } catch (NumberFormatException e) {
+            // Handle invalid movieId format
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Movie ID format. Must be an integer.");
+        }
+    }
+
+
+
+
+    // ---------------------------------- Delete Show Time --------------------------------
+
+    private void deleteShowtime(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String showIdParam = request.getParameter("showId");
+
+        if (showIdParam == null || showIdParam.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Show ID is required and cannot be empty.");
+            return;
+        }
+
+        try {
+            int showId = Integer.parseInt(showIdParam);
+
+            // Debugging - Log the showId
+            System.out.println("Deleting showtime with ID: " + showId);
+
+            boolean isDeleted = showtimeService.deleteShowtime(showId);
+
+            if (isDeleted) {
+                request.setAttribute("successMessage", "Showtime deleted successfully.");
+            } else {
+                request.setAttribute("errorMessage", "Failed to delete the showtime.");
+            }
+
+            // Redirect to the appropriate page (e.g., showtime list)
+            response.sendRedirect(request.getContextPath() + "/admin/movie-management?action=showMovies");
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Show ID format. Must be an integer.");
+        }
+    }
 
 
 
