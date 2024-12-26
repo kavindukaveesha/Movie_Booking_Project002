@@ -326,9 +326,9 @@
         .movie-card-info {
             margin-top: 10px;
         }
-      a{
-          text-decoration: none;
-      }
+        a{
+            text-decoration: none;
+        }
 
     </style>
 </head>
@@ -340,32 +340,7 @@
         <jsp:include page="/components/client-navbar.jsp" />
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <c:forEach var="heroMovie" items="${movies}" begin="0" end="0">
-            <div class="hero-content" style="">
-                <div class="movie-poster">
-                    <img src="${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster" style="height: 60vh"/>
-                </div>
-                <div class="movie-info">
-                    <h1 class="movie-title">${heroMovie.title}</h1>
-                    <p class="movie-description">${heroMovie.description}</p>
-                    <div class="movie-meta">
-                        <span>${heroMovie.status}</span>
-                        <span class="age-rating">${heroMovie.ageRange}</span>
-                        <span class="rating">★ ${heroMovie.rating}</span>
-                        <c:forEach var="genre" items="${heroMovie.genre}">
-                            <span class="genre">${genre}</span>
-                        </c:forEach>
-                    </div>
-                    <div class="buttons">
-                        <a href="${pageContext.request.contextPath}/moviedetails?movieId=${heroMovie.id}" class="book-now">Movie Details</a>
-                        <a href="${heroMovie.trailarUrl}" class="watch-trailer">Watch Trailer</a>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-    </section>
+    <h1 style="padding: 40px">Your Search Result</h1>
 
 
     <!-- Now Available Section -->

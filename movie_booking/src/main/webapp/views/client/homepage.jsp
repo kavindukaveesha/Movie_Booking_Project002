@@ -177,70 +177,157 @@
         }
 
         .hero {
-            padding: 50px;
-            background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}');
+            position: relative;
+            padding: 80px 50px;
+            min-height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(26, 9, 51, 0.9)),
+            url('${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            box-shadow: inset 0 -100px 100px -100px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.8));
+            pointer-events: none;
         }
         .hero-content {
+            position: relative;
+            z-index: 1;
             display: flex;
-            gap: 30px;
+            gap: 50px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
         .movie-poster {
-            width: 300px;
+            flex: 0 0 400px;
+            transform: perspective(1000px) rotateY(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-poster:hover {
+            transform: perspective(1000px) rotateY(0deg);
         }
         .movie-poster img {
             width: 100%;
-            border-radius: 10px;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+
         .movie-info {
-            padding-top: 205px;
             flex: 1;
+            padding: 30px 0;
         }
+
         .movie-title {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .movie-description {
-            margin-bottom: 20px;
-            line-height: 1.5;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
+
         .movie-meta {
             display: flex;
             gap: 20px;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            margin-top: 10px;
         }
+        .movie-meta span {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .age-rating {
-            background-color: #ff0000;
-            padding: 2px 8px;
-            border-radius: 3px;
+            background: linear-gradient(45deg, #ff4444, #ff0000) !important;
+            color: white;
         }
+
         .rating {
-            color: #ffd700;
+            color: #ffd700 !important;
         }
+
         .genre {
-            color: #888;
+            color: #fff !important;
         }
         .buttons {
             display: flex;
             gap: 20px;
         }
+
         .book-now, .watch-trailer {
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
+
         .book-now {
-            background-color: #ff0000;
+            background: linear-gradient(45deg, #ff4444, #ff0000);
             color: white;
+            border: none;
+            font-size: .8rem;
         }
+        .book-now:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
         .watch-trailer {
-            background-color: white;
-            color: black;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(5px);
+            font-size: .8rem;
         }
-        .now-available {
-            padding: 50px;
+
+        .watch-trailer:hover {
+            background: white;
+            color: black;
+            transform: translateY(-2px);
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .movie-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .movie-card-info {
+            margin-top: 10px;
+        }
+        a{
+            text-decoration: none;
         }
         .section-header {
             display: flex;
@@ -317,7 +404,7 @@
 
 
     <!-- Now Available Section -->
-    <section class="now-available">
+    <section class="now-available"style="padding: 5rem 8rem">
         <div class="section-header">
             <h2>Now Available</h2>
             <a href="${pageContext.request.contextPath}/movies" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
@@ -325,7 +412,7 @@
         <div class="movie-grid">
             <c:forEach var="movie" items="${movies}" begin="1" end="3">
                 <div class="movie-card">
-                    <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="${movie.title}"/>
+                    <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="${movie.title}" style="height: 60vh" alt="${movie.title}"/>
                     <div class="movie-card-info">
                         <h3>${movie.title}</h3>
                         <div class="movie-meta">

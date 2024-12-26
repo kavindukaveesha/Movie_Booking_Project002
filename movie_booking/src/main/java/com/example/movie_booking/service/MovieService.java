@@ -21,6 +21,13 @@ public class MovieService {
     public List<Movie> getAllMovies() throws Exception {
         return movieDAO.fetchAllMovies();
     }
+    //-------------------------------------------------------------------------
+
+    public List<Movie> searchMoviesByName(String name) {
+        return movieDAO.searchMoviesByName(name);
+    }
+
+
 
 
     public Movie getMovieById(int movieId) {

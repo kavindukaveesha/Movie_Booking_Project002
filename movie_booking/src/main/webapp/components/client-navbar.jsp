@@ -107,6 +107,31 @@
         .cancel-booking-btn:hover {
             background-color: #cc0000; /* Darker red on hover */
         }
+        .search-container form {
+            display: flex;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 8px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
 
     </style>
 </head>
@@ -143,10 +168,13 @@
             <li><a href="${pageContext.request.contextPath}/about-us">About us</a></li>
         </ul>
     </nav>
-    <div class="user-actions">
-        <div class="search">
-            <i class="fas fa-search"></i>
-        </div>
+
+    <div class="search-container">
+        <form action="<%= request.getContextPath() %>/movies" method="post">
+            <input type="text" placeholder="Search movies..." name="movie">
+            <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+    </div>
 
         <% if (user != null) { %>
 

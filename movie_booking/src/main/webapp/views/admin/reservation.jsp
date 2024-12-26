@@ -73,7 +73,7 @@
                                 <td>${booking.time}</td>
                                 <!-- Debug to check type and content -->
                                 <td>
-                                  
+
                                     <c:out value="${booking.seatNumbers}"/>
                                 </td>
 

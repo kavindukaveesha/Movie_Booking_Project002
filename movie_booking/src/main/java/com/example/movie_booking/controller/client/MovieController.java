@@ -1,7 +1,5 @@
 package com.example.movie_booking.controller.client;
 
-
-
 import com.example.movie_booking.model.Movie;
 import com.example.movie_booking.service.MovieService;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,22 +12,22 @@ import java.util.List;
 
 @WebServlet("/movies")
 public class MovieController extends HttpServlet {
-    MovieService movieService = new MovieService();
-    // Handles displaying the Review Us form
+    private MovieService movieService = new MovieService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Forward to the review-us.jsp page where the review form is presented
-
-
         List<Movie> activeMovies = movieService.getAllActiveMovies();
-
-        // Set the movies as a request attribute
-        System.out.println(activeMovies.isEmpty());
-
         request.setAttribute("movies", activeMovies);
-
-       request.getRequestDispatcher("/views/client/all-movies.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/client/all-movies.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String movieName = request.getParameter("movie");
+        List<Movie> foundMovies = movieService.searchMoviesByName(movieName);
 
+        request.setAttribute("movies", foundMovies);
+        request.getRequestDispatcher("/views/client/search" +
+                "-movies.jsp").forward(request, response);
+    }
 }

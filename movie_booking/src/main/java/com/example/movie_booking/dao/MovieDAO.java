@@ -44,6 +44,43 @@ public class MovieDAO {
         return -1; // Return -1 if insertion failed
     }
 
+    //----------------------------------------------------------------------------------------------
+
+    public List<Movie> searchMoviesByName(String name) {
+        List<Movie> movies = new ArrayList<>();
+        String sql = "SELECT * FROM movie WHERE LOWER(title) LIKE ?";  // Ensure your table and column names are correct
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + name.toLowerCase() + "%");  // Set the parameter before executing the query
+            ResultSet rs = stmt.executeQuery();  // Execute the query after setting the parameter
+
+            while (rs.next()) {
+                Movie movie = new Movie();
+                movie.setId(rs.getInt("id"));
+                movie.setTitle(rs.getString("title"));
+
+                // Convert SQL Array to List<String> if 'genre' is stored as an array in the database
+                Array genreArray = rs.getArray("genre");
+                if (genreArray != null) {
+                    String[] genreStrings = (String[]) genreArray.getArray();
+                    movie.setGenre(Arrays.asList(genreStrings));
+                }
+
+                movie.setLanguage(rs.getString("language"));
+                movie.setStatus(rs.getString("status"));
+                movie.setImageUrl(rs.getString("image_url"));
+                movies.add(movie);
+            }
+            rs.close();  // Close ResultSet
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);  // Handle other unexpected exceptions
+        }
+        return movies;
+    }
+
 
 
 
