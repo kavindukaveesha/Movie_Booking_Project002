@@ -31,6 +31,8 @@ public class CancelBookingController extends HttpServlet {
         String email = user.getEmail(); // Use email from the user object directly
         int userId = user.getId(); // Use user ID from the user object directly
         String bookingIdStr = request.getParameter("bookingId");
+
+        System.out.println(bookingIdStr+email);
         int bookingId;
 
         try {
@@ -46,7 +48,7 @@ public class CancelBookingController extends HttpServlet {
         if (isCancelled) {
             try {
                 emailService.sendBookingCancellationEmail(email); // Send email confirmation
-                response.sendRedirect(request.getContextPath() + "/views/client/booking-cancel-success"); // Redirect on successful cancellation
+                response.sendRedirect(request.getContextPath() + "/views/client/booking-cancel-success.jsp"); // Redirect on successful cancellation
             } catch (Exception e) {
                 throw new RuntimeException("Error sending cancellation email", e);
             }

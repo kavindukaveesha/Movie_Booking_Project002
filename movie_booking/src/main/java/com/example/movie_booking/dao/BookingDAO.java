@@ -80,6 +80,7 @@ public class BookingDAO {
             return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("sql error");
             return false;
         } catch (Exception e) {
             throw new RuntimeException(e);
