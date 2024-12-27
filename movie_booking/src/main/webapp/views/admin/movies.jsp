@@ -142,33 +142,7 @@
 
 
 
-                    <tr>
-                        <td class="border py-2 px-4">
-                            <img src="example.jpg" alt="Movie Image" class="h-10 w-10 rounded"/>
-                        </td>
-                        <td class="border py-2 px-4">Thor Love & Thunder</td>
-                        <td class="border py-2 px-4">Action</td>
-                        <td class="border py-2 px-4">English</td>
-                        <td class="border py-2 px-4">
-                            <span class="status-dot status-active"></span> Active
-                        </td>
-                        <td class="border py-2 px-4">
-                            <button class="action-btn bg-yellow-400">
-                                <i class="fas fa-calendar-plus"></i> Add Show
-                            </button>
 
-                            <button class="action-btn bg-yellow-400">
-                                <i class="fa-regular fa-eye fa-beat"></i> View Shows
-                            </button>
-
-                            <button class="action-btn bg-blue-500 text-white">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="action-btn bg-red-500 text-white">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
 
 
 

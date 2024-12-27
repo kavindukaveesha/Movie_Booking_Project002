@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "MovieDetails", value = "/moviedetails")
 public class MovieDetailsController extends HttpServlet {
@@ -23,6 +24,7 @@ public class MovieDetailsController extends HttpServlet {
 
 
                // Fetch the movie details from the service
+               List<Movie> movies = movieService.getAllActiveMovies();
                Movie movie = movieService.getMovieById(id);
 
                if (movie == null) {
@@ -32,6 +34,7 @@ public class MovieDetailsController extends HttpServlet {
 
                // Set the movie as a request attribute
                request.setAttribute("movie", movie);
+               request.setAttribute("movies", movies);
 
                // Forward the request to the JSP page
                request.getRequestDispatcher("/views/client/movie-details.jsp").forward(request, response);
@@ -39,8 +42,9 @@ public class MovieDetailsController extends HttpServlet {
 
            } catch (NumberFormatException e) {
                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid movie ID");
+           } catch (Exception e) {
+               throw new RuntimeException(e);
            }
-
 
 
     }

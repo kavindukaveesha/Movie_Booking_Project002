@@ -13,7 +13,7 @@
     <title>Checkout - ABC Cinema</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-    <script src="https://js.stripe.com/v3/"></script>
+<%--    <script src="https://js.stripe.com/v3/"></script>--%>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -215,6 +215,9 @@
         response.sendRedirect(request.getContextPath() + "/select-movie");
         return;
     }
+    double totalPrice = (double) bookingDetails.getOrDefault("totalPrice", 0.0);
+    double finalTotal = totalPrice + 20; // Add booking fee
+    session.setAttribute("finalTotal", finalTotal);
     // Store bookingDetails in session
     session.setAttribute("bookingDetails", bookingDetails);
 
@@ -243,84 +246,73 @@
                 <i class="fas fa-phone"></i>
                 <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" value="<%= user.getMobile() %>" required>
             </div>
+
+            <div class="payment" style="margin-top: 10px;">
+                <h2>Payment method</h2>
+                <div class="payment-options" style="display: flex; justify-content: space-between;">
+
+                    <!-- Cash Option in a form for potential future use -->
+                    <form style="flex: 1; margin-right: 10px;"> <!-- Adding margin for spacing between buttons -->
+                        <button type="button" class="payment-option cash" onclick="selectPayment('cash')" style="width: 100%; background-color: #FFC107; color: black; border: none; border-radius: 30px; padding: 10px 20px; font-weight: bold; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-money-bill-wave" style="margin-right: 10px;"></i> Cash
+                        </button>
+                    </form>
+
+                    <!-- PayPal Option -->
+                    <form id="bookingForm" action="${pageContext.request.contextPath}/checkout-method" method="post" style="flex: 1;">
+                        <input type="hidden" name="action" value="checkout-method">
+                        <input type="hidden" name="total" value="<%= finalTotal %>">
+                        <button type="submit" class="payment-option paypal" style="width: 100%; background-color: #0070BA; color: white; border: none; border-radius: 30px; padding: 10px 20px; font-weight: bold; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fab fa-paypal" style="margin-right: 10px;"></i> Paypal
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+
         </section>
         <aside id="checkout-summary">
-            <h2>Order Summary</h2>
-            <form id="bookingForm" action="${pageContext.request.contextPath}/checkout-method" method="post">
-                <input type="hidden" name="action" value="checkout-method">
-                <div class="details">
-                    <div class="row">
-                        <span>Total</span>
-                        <span id="total">Rs."/></span>
-                    </div>
-                    <button type="submit" id="submit-button">Proceed to Payment</button>
+            <div class="details">
+                <div class="row">
+                    <span>Sub Total</span>
+                    <span id="subtotal">$. <%= totalPrice %></span>
                 </div>
-            </form>
-
+                <br><br>
+                <div class="row">
+                    <span>Booking Fee</span>
+                    <span id="booking-fee">$. 20</span>
+                </div>
+                <br><br>
+                <div class="row total">
+                    <span>Total</span>
+                    <span id="total">$. <%= finalTotal %></span>
+                </div>
+            </div>
         </aside>
+
     </div>
 </main>
 
 <jsp:include page="/components/client-footer.jsp"/>
 
+<!-- Replace the existing script section with this -->
+<script src="https://www.paypal.com/sdk/js?client-id=your_paypal_client_id&currency=USD"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Stripe
-        var stripe = Stripe('pk_test_51QWv90HGW1CG3lRCYRH81MFVkKaSwGGgopT17X0UWq7v9EegdfEv8LZxlEigsBPF2ou0RpSZKgVjsWY32pcHuAw000WJ3UrPcg');
-
         // Update totals
         updateTotals();
-
-        // Handle form submission
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Update hidden form fields
-            document.getElementById('form-fullName').value = document.getElementById('fullName').value;
-            document.getElementById('form-email').value = document.getElementById('email').value;
-            document.getElementById('form-mobile').value = document.getElementById('mobile').value;
-
-            // Disable submit button
-            document.getElementById('submit-button').disabled = true;
-
-            // Submit form to create checkout session
-            fetch('<%=request.getContextPath()%>/checkout-method', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(new FormData(form))
-            })
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(session) {
-                    return stripe.redirectToCheckout({ sessionId: session.id });
-                })
-                .then(function(result) {
-                    if (result.error) {
-                        alert(result.error.message);
-                        document.getElementById('submit-button').disabled = false;
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error:', error);
-                    alert('There was an error processing your payment. Please try again.');
-                    document.getElementById('submit-button').disabled = false;
-                });
-        });
     });
 
     function updateTotals() {
         var totalElement = document.getElementById('total');
-        var subtotal =<%= bookingDetails.get("totalPrice") %>
+        var subtotal = <%= bookingDetails.get("totalPrice") %>;
         var bookingFee = 20;
         var total = subtotal + bookingFee;
-        totalElement.innerHTML = 'Rs. ' + total;
-        document.getElementById('form-total').value = total;
+        totalElement.innerHTML = '$. ' + total;
     }
 </script>
 
 </body>
 </html>
+

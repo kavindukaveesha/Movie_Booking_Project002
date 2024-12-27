@@ -2,10 +2,10 @@ package com.example.movie_booking.controller.client;
 
 import com.example.movie_booking.model.User;
 import com.example.movie_booking.service.BookingService;
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.checkout.Session;
-import com.stripe.param.checkout.SessionCreateParams;
+import com.paypal.api.payments.*;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.api.payments.Amount;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,17 +14,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/make-checkout", "/checkout-method"})
 public class CheckoutController extends HttpServlet {
     private BookingService bookingService;
-    private static final String STRIPE_SECRET_KEY = "sk_test_51QWv90HGW1CG3lRC61h8JAz0L2cuEYsEZKAEWM6lkhk5K3O6wyjPcuYoNxLkqm5LRAdg0GTmhhQVCTOpFQebSY5V00trOlUZyO";
+    private static final String PAYPAL_CLIENT_ID = "AQhJU9ZvZ_OzOKZSyohxN88qr92zWFa7nd7fTJNn7B7bRDggsoEbGfcXqzBaoMU7lDx_pw39YwQI3pdL";
+    private static final String PAYPAL_CLIENT_SECRET = "EO5QuLfi_Z51cWCBgO8fQCek6giXcScYHDGN_d7Wc-qKsd_hBFPHaq1V-gd9f623ARCmOQedFEdTjCtu";
+    private static final String MODE = "sandbox"; // Change to "live" for production
 
     @Override
     public void init() {
-        Stripe.apiKey = STRIPE_SECRET_KEY;
         bookingService = new BookingService();
     }
 
@@ -99,29 +102,18 @@ public class CheckoutController extends HttpServlet {
         }
     }
 
+
     private void processCheckoutMethod(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         Map<String, Object> bookingDetails = (Map<String, Object>) session.getAttribute("bookingDetails");
 
-        // Check if bookingDetails exists in the session
         if (bookingDetails == null) {
-            System.out.println("No booking details found, redirecting to movie selection"); // Debugging output
+            System.out.println("No booking details found, redirecting to movie selection");
             response.sendRedirect(request.getContextPath() + "/select-movie");
             return;
         }
 
-        // Print the full booking details map for debugging
-        System.out.println("Booking Details: " + bookingDetails);
-
-        // Ensure all required keys are present and not null
-        String movieId = bookingDetails.getOrDefault("movieId", "Unknown").toString();
-        String showId = bookingDetails.getOrDefault("showId", "Unknown").toString();
-        String showDate = bookingDetails.getOrDefault("showDate", "Unknown").toString();
-        String showTime = bookingDetails.getOrDefault("showTime", "Unknown").toString();
-        String selectedSeats = bookingDetails.getOrDefault("selectedSeats", "None").toString();
-        String totalPriceStr = bookingDetails.getOrDefault("totalPrice", "0.0").toString();
-
-        // Convert totalPrice to double safely
+        String totalPriceStr = request.getParameter("total");
         double totalPrice = 0.0;
         try {
             totalPrice = Double.parseDouble(totalPriceStr);
@@ -131,53 +123,159 @@ public class CheckoutController extends HttpServlet {
             return;
         }
 
-        // Debugging outputs for individual values
-        System.out.println("Movie ID: " + movieId);
-        System.out.println("Show ID: " + showId);
-        System.out.println("Show Date: " + showDate);
-        System.out.println("Show Time: " + showTime);
-        System.out.println("Selected Seats: " + selectedSeats);
-        System.out.println("Total Price: " + totalPrice);
-
-        // Validate user session
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            System.out.println("No user found in session, redirecting to login"); // Debugging output
             response.sendRedirect(request.getContextPath() + "/auth/login");
             return;
         }
 
-        // Debugging output for user
-        System.out.println("User: " + user.getFullName());
-
-        // Proceed with Stripe session creation
         try {
-            SessionCreateParams sessionParams = SessionCreateParams.builder()
-                    .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl(String.format("%s://%s:%d%s/booking-success?session_id={CHECKOUT_SESSION_ID}", request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()))
-                    .setCancelUrl(String.format("%s://%s:%d%s/booking-cancel", request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()))
-                    .addLineItem(SessionCreateParams.LineItem.builder()
-                            .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
-                                    .setCurrency("usd")
-                                    .setUnitAmount((long) (totalPrice * 100))
-                                    .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                            .setName(bookingDetails.getOrDefault("movieName", "Unknown Movie").toString())
-                                            .setDescription("Booking for " + user.getFullName())
-                                            .build())
-                                    .build())
-                            .setQuantity(1L)
-                            .build())
-                    .build();
+            APIContext apiContext = new APIContext(PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, MODE);
 
-            Session stripeSession = Session.create(sessionParams);
-            bookingDetails.put("stripeSessionId", stripeSession.getId());
+            // Create PayPal Payment
+            Payment payment = createPayPalPayment(
+                    apiContext,
+                    request.getContextPath(),
+                    request.getServerName(),
+                    request.getServerPort(),
+                    request.getScheme(),
+                    totalPrice,
+                    bookingDetails.getOrDefault("movieName", "Movie Ticket").toString(),
+                    user.getFullName()
+            );
 
-            session.setAttribute("bookingDetails", bookingDetails);
-            response.sendRedirect(stripeSession.getUrl());
-        } catch (StripeException e) {
-            System.out.println("Stripe processing failed: " + e.getMessage()); // Debugging output
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Stripe processing failed: " + e.getMessage());
+            for (Links links : payment.getLinks()) {
+                if (links.getRel().equals("approval_url")) {
+                    bookingDetails.put("paypalPaymentId", payment.getId());
+                    session.setAttribute("bookingDetails", bookingDetails);
+                    response.sendRedirect(links.getHref());
+                    return;
+                }
+            }
+
+        } catch (PayPalRESTException e) {
+            System.out.println("PayPal processing failed: " + e.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "PayPal processing failed: " + e.getMessage());
         }
     }
+
+    private Payment createPayPalPayment(
+            APIContext apiContext,
+            String contextPath,
+            String serverName,
+            int serverPort,
+            String scheme,
+            double totalAmount,
+            String movieName,
+            String customerName) throws PayPalRESTException {
+
+
+        Amount amount = new Amount();  // Note the capital 'A'
+        amount.setCurrency("USD");
+        amount.setTotal(String.format("%.2f", totalAmount));
+
+        Transaction transaction = new Transaction();
+        transaction.setDescription("Booking for " + customerName);
+        transaction.setAmount(amount);
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+
+        Payer payer = new Payer();
+        payer.setPaymentMethod("paypal");
+
+        Payment payment = new Payment();
+        payment.setIntent("sale");
+        payment.setPayer(payer);
+        payment.setTransactions(transactions);
+
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setReturnUrl(String.format("%s://%s:%d%s/booking-success",
+                scheme, serverName, serverPort, contextPath));
+        redirectUrls.setCancelUrl(String.format("%s://%s:%d%s/booking-cancel",
+                scheme, serverName, serverPort, contextPath));
+        payment.setRedirectUrls(redirectUrls);
+
+        return payment.create(apiContext);
+    }
+//    private void processCheckoutMethod(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        HttpSession session = request.getSession();
+//        Map<String, Object> bookingDetails = (Map<String, Object>) session.getAttribute("bookingDetails");
+//
+//        // Check if bookingDetails exists in the session
+//        if (bookingDetails == null) {
+//            System.out.println("No booking details found, redirecting to movie selection"); // Debugging output
+//            response.sendRedirect(request.getContextPath() + "/select-movie");
+//            return;
+//        }
+//
+//        // Print the full booking details map for debugging
+//        System.out.println("Booking Details: " + bookingDetails);
+//
+//        // Ensure all required keys are present and not null
+//        String movieId = bookingDetails.getOrDefault("movieId", "Unknown").toString();
+//        String showId = bookingDetails.getOrDefault("showId", "Unknown").toString();
+//        String showDate = bookingDetails.getOrDefault("showDate", "Unknown").toString();
+//        String showTime = bookingDetails.getOrDefault("showTime", "Unknown").toString();
+//        String selectedSeats = bookingDetails.getOrDefault("selectedSeats", "None").toString();
+//        String totalPriceStr = request.getParameter("total");
+//
+//        // Convert totalPrice to double safely
+//        double totalPrice = 0.0;
+//        try {
+//            totalPrice = Double.parseDouble(totalPriceStr);
+//        } catch (NumberFormatException e) {
+//            System.out.println("Invalid totalPrice value: " + totalPriceStr);
+//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid total price in booking details.");
+//            return;
+//        }
+//
+//        // Debugging outputs for individual values
+//        System.out.println("Movie ID: " + movieId);
+//        System.out.println("Show ID: " + showId);
+//        System.out.println("Show Date: " + showDate);
+//        System.out.println("Show Time: " + showTime);
+//        System.out.println("Selected Seats: " + selectedSeats);
+//        System.out.println("Total Price: " + totalPrice);
+//
+//        // Validate user session
+//        User user = (User) session.getAttribute("user");
+//        if (user == null) {
+//            System.out.println("No user found in session, redirecting to login"); // Debugging output
+//            response.sendRedirect(request.getContextPath() + "/auth/login");
+//            return;
+//        }
+//
+//        // Debugging output for user
+//        System.out.println("User: " + user.getFullName());
+//
+//        // Proceed with Stripe session creation
+//        try {
+//            SessionCreateParams sessionParams = SessionCreateParams.builder()
+//                    .setMode(SessionCreateParams.Mode.PAYMENT)
+//                    .setSuccessUrl(String.format("%s://%s:%d%s/booking-success?session_id={CHECKOUT_SESSION_ID}", request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()))
+//                    .setCancelUrl(String.format("%s://%s:%d%s/booking-cancel", request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()))
+//                    .addLineItem(SessionCreateParams.LineItem.builder()
+//                            .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
+//                                    .setCurrency("usd")
+//                                    .setUnitAmount((long) (totalPrice * 100))
+//                                    .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
+//                                            .setName(bookingDetails.getOrDefault("movieName", "Unknown Movie").toString())
+//                                            .setDescription("Booking for " + user.getFullName())
+//                                            .build())
+//                                    .build())
+//                            .setQuantity(1L)
+//                            .build())
+//                    .build();
+//
+//            Session stripeSession = Session.create(sessionParams);
+//            bookingDetails.put("stripeSessionId", stripeSession.getId());
+//
+//            session.setAttribute("bookingDetails", bookingDetails);
+//            response.sendRedirect(stripeSession.getUrl());
+//        } catch (StripeException e) {
+//            System.out.println("Stripe processing failed: " + e.getMessage()); // Debugging output
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Stripe processing failed: " + e.getMessage());
+//        }
+//    }
 
 }

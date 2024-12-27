@@ -1,13 +1,14 @@
 <style>
     footer {
-        background-color: rgba(0, 0, 0, 0.3);
-        padding: 20px 40px;
+        background-color: rgba(14, 1, 97, 0.65);
         color: #FFFFFF;
+
     }
     .footer-content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        padding: 30px;
     }
     .footer-logo {
         display: flex;
@@ -40,6 +41,55 @@
         color: #FFFFFF;
         margin-right: 15px;
         font-size: 20px;
+    }
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .footer-logo {
+        display: flex;
+        align-items: center;
+    }
+    .footer-logo img {
+        width: 30px;
+        margin-right: 10px;
+    }
+    .footer-logo span {
+        color: #FFD700;
+        font-weight: bold;
+    }
+    .footer-links a {
+        color: #FFFFFF;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+    .social-icons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .social-icons span {
+        margin-bottom: 10px;
+    }
+    .social-icons-container {
+        display: flex;
+    }
+    .social-icons a {
+        color: #FFFFFF;
+        margin-right: 15px;
+        font-size: 20px;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 30px 0;
+    }
+    .copyright{
+        text-align: center;
+        padding: 20px 10px;
     }
 </style>
 <footer>

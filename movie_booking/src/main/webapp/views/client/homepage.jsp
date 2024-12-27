@@ -11,7 +11,6 @@
     <link href="styles.css" rel="stylesheet"/> <!-- Link to external CSS file -->
 
     <style>
-        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -19,315 +18,88 @@
         }
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to bottom, #000000, #4B0082); /* Background gradient */
-            color: #FFFFFF; /* White text color for whole body */
+            background: linear-gradient(to bottom, #000000, #4B0082);
+            color: #FFFFFF;
         }
         .container {
+
             width: 100%;
-            margin: 0 auto; /* Centering the container */
-        }
-
-        /* Navbar Styles */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: rgba(0, 0, 0, 0.9); /* Dark background with opacity */
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .logo img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-        .logo span {
-            color: #FFD700; /* Golden color for "ABC" */
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li {
-            margin: 0 20px;
-        }
-        nav ul li a {
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        /* User Actions Styles */
-        .user-actions {
-            display: flex;
-            align-items: center;
-        }
-        .user-actions .search, .user-actions .notifications {
-            margin-right: 20px;
-            font-size: 20px;
-            color: white;
-            cursor: pointer;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .user-profile img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 10px;
-            background-color: #ccc; /* Fallback color for the profile icon */
-        }
-        .user-profile span {
-            font-size: 14px;
-            color: #FFFFFF;
-            font-weight: 500;
-        }
-
-        /* Dropdown Menu Styles */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            color: #000;
-            min-width: 100px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            text-align: center;
-            border-radius: 5px;
-        }
-        .dropdown-content a {
-            text-decoration: none;
-            color: #000;
-            padding: 8px 10px;
-            display: block;
-            font-size: 14px;
-        }
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block; /* Show dropdown content on hover */
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 20px 40px;
-        }
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .footer-logo {
-            display: flex;
-            align-items: center;
-        }
-        .footer-logo img {
-            width: 30px;
-            margin-right: 10px;
-        }
-        .footer-logo span {
-            color: #FFD700;
-            font-weight: bold;
-        }
-        .footer-links a {
-            color: #FFFFFF;
-            text-decoration: none;
-            margin-right: 20px;
-        }
-        .social-icons {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .social-icons span {
-            margin-bottom: 10px;
-        }
-        .social-icons-container {
-            display: flex;
-        }
-        .social-icons a {
-            color: #FFFFFF;
-            margin-right: 15px;
-            font-size: 20px;
-        }
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            color: #B8B8B8;
-            font-size: 14px;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.2);
-            margin: 30px 0;
-        }
-
-        .hero {
-            position: relative;
-            padding: 80px 50px;
-            min-height: 80vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(26, 9, 51, 0.9)),
-            url('${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            box-shadow: inset 0 -100px 100px -100px rgba(0, 0, 0, 0.9);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.8));
-            pointer-events: none;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            gap: 50px;
-            align-items: center;
-            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .movie-poster {
-            flex: 0 0 400px;
-            transform: perspective(1000px) rotateY(5deg);
-            transition: transform 0.3s ease;
+
+        .hero {
+            background: linear-gradient(rgba(15, 5, 30, 0.9), rgba(15, 5, 30, 0.9));
+            background-size: contain;
         }
 
-        .movie-poster:hover {
-            transform: perspective(1000px) rotateY(0deg);
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 50px 100px;
+            display: flex;
+            gap: 30px;
+        }
+        .movie-poster {
+            width: 40vh;
+            border-radius: 10px;
+            border: 0.03px solid #d2d0d0;
         }
         .movie-poster img {
             width: 100%;
-            height: 600px;
-            object-fit: cover;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
-
         .movie-info {
+            padding-top: 205px;
             flex: 1;
-            padding: 30px 0;
         }
-
         .movie-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(45deg, #fff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 48px;
+            margin-bottom: 20px;
         }
         .movie-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #e0e0e0;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
-
         .movie-meta {
             display: flex;
             gap: 20px;
             align-items: center;
-            margin-bottom: 30px;
-            margin-top: 10px;
+            margin-bottom: 20px;
         }
-        .movie-meta span {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            backdrop-filter: blur(5px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
         .age-rating {
-            background: linear-gradient(45deg, #ff4444, #ff0000) !important;
-            color: white;
+            background-color: #ff0000;
+            padding: 2px 8px;
+            border-radius: 3px;
         }
-
         .rating {
-            color: #ffd700 !important;
+            color: #ffd700;
         }
-
         .genre {
-            color: #fff !important;
+            color: #888;
         }
         .buttons {
             display: flex;
             gap: 20px;
         }
-
         .book-now, .watch-trailer {
-            padding: 15px 35px;
+            padding: 10px 25px;
             border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .book-now {
-            background: linear-gradient(45deg, #ff4444, #ff0000);
-            color: white;
-            border: none;
-            font-size: .8rem;
-        }
-        .book-now:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
-        }
-
-        .watch-trailer {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid white;
-            backdrop-filter: blur(5px);
-            font-size: .8rem;
-        }
-
-        .watch-trailer:hover {
-            background: white;
-            color: black;
-            transform: translateY(-2px);
-        }
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        .movie-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .movie-card-info {
-            margin-top: 10px;
-        }
-        a{
             text-decoration: none;
+            font-weight: bold;
+        }
+        .book-now {
+            background-color: #ff0000;
+            color: white;
+        }
+        .watch-trailer {
+            background-color: white;
+            color: black;
+        }
+        .now-available {
+            padding: 50px;
         }
         .section-header {
             display: flex;
@@ -352,14 +124,15 @@
             margin-top: 10px;
         }
         .about-section {
-            padding: 50px;
             background: linear-gradient(rgba(26, 9, 51, 0.8), rgba(26, 9, 51, 0.8)), url('https://i.ibb.co/1qnwZGP/image-3.png');
             background-size: cover;
         }
         .about-content {
-            max-width: 800px;
+            padding: 150px;
             line-height: 1.6;
         }
+
+
     </style>
 </head>
 <body>
@@ -374,8 +147,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <c:forEach var="heroMovie" items="${movies}" begin="0" end="0">
-            <div class="hero-content">
-                <div class="movie-poster">
+            <div class="hero-content" style="background: url('${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}') no-repeat center center / cover;">
+            <div class="movie-poster">
                     <img src="${pageContext.request.contextPath}/DBImages/${heroMovie.imageUrl}" alt="${heroMovie.title} movie poster"  style="height:60vh" />
                 </div>
                 <div class="movie-info">
@@ -414,7 +187,7 @@
                 <div class="movie-card">
                     <img src="${pageContext.request.contextPath}/DBImages/${movie.imageUrl}" alt="${movie.title}" style="height: 60vh" alt="${movie.title}"/>
                     <div class="movie-card-info">
-                        <h3>${movie.title}</h3>
+                        <h3>${movie.title}</h3><br>
                         <div class="movie-meta">
                             <span>${movie.status}</span>
                             <span class="age-rating">${movie.ageRange}</span>
@@ -433,7 +206,7 @@
 
     <!-- About Section -->
     <section class="about-section">
-        <div class="about-content">
+        <div class="about-content" style="margin-right: 20rem">
             <p>At <span style="color: #FFD700;">ABC Cinema</span>, we're dedicated to providing you with the ultimate cinematic experience. From world-class facilities to exceptional customer care, your comfort and enjoyment are always our top priorities. Let us take care of the details so you can sit back, relax, and immerse yourself in the magic of the movies.</p>
             <br/>
             <p>Experience the difference—only at <span style="color: #FFD700;">ABC Cinema</span></p>

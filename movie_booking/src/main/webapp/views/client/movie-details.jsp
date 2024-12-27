@@ -22,7 +22,7 @@
         }
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #0f0f0f;
+            background: linear-gradient(to bottom, #000000, #4B0082);
             color: white;
 
         }
@@ -36,45 +36,7 @@
             padding: 20px 40px;
             background-color: rgba(0, 0, 0, 0.3);
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .logo img {
-            width: 40px;
-            margin-right: 10px;
-        }
-        .logo span {
-            color: #FFD700;
-        }
-        nav ul {
-            display: flex;
-            list-style-type: none;
-        }
-        nav ul li {
-            margin-right: 20px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        .user-actions {
-            display: flex;
-            align-items: center;
-        }
-        .user-actions .search, .user-actions .notifications {
-            margin-right: 20px;
-            font-size: 20px;
-        }
-        .sign-in {
-            background-color: #FF0000;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
+
         .hero {
             position: relative;
             height: 500px;
@@ -99,7 +61,7 @@
         }
         .hero-buttons a {
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
         }
@@ -157,10 +119,12 @@
         }
         .recommendation-item img {
             width: 100%;
+            height: 50%;
             border-radius: 5px;
         }
         .recommendation-item .title {
             position: absolute;
+            top: 60%;
             bottom: 10px;
             left: 10px;
             color: white;
@@ -209,6 +173,27 @@
                 <p class="movie-description">
                     ${movie.description}
                 </p>
+            </div>
+        </section>
+
+        <!-- Movie Recommendations Section -->
+        <section class="recommendations">
+            <div class="recommendations-header">
+                <h2>Recommended Movies</h2>
+                <div class="view-all">
+                    <a href="${pageContext.request.contextPath}/movies">View All</a>
+                </div>
+            </div>
+            <div class="recommendations-grid">
+                <c:forEach var="recommendation" items="${movies}" varStatus="status">
+                    <c:if test="${recommendation.id != movie.id}"> <!-- Ensure not showing the current movie -->
+                        <div class="recommendation-item">
+                            <img src="${pageContext.request.contextPath}/DBImages/${recommendation.imageUrl}" alt="${recommendation.title}">
+                            <div class="title">${recommendation.title}</div>
+                            <div class="episode">Season 1, Episode 1</div>
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
         </section>
     </main>

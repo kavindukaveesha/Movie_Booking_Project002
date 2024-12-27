@@ -83,7 +83,7 @@ public class BookingSuccessController extends HttpServlet {
         }
 
 // Assuming Booking constructor can accept List<String> for seatNumbers
-        Booking booking = new Booking(0, user.getId(), movieTitle, showDate, showTime, seatNumbers, totalPrice, bookingId);
+        Booking booking = new Booking(0, user.getId(), movieTitle, showDate, showTime, seatNumbers, totalPrice+20, bookingId);
 
 // Proceed with booking logic
 

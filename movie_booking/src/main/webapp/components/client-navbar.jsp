@@ -20,7 +20,104 @@
             justify-content: space-between;
             align-items: center;
             background-color: #1e0635;
-            padding: 10px 20px;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.9); /* Ensure the header is visually distinct */
+        }
+
+
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: #FFD700; /* Golden color for "ABC" */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions .search, .user-actions .notifications {
+            margin-right: 20px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #ccc; /* Fallback color for the profile icon */
+        }
+
+        .user-profile span {
+            font-size: 14px;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            color: #000;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            text-decoration: none;
+            color: #000;
+            padding: 8px 10px;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .logo {
             display: flex;
@@ -60,11 +157,12 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             text-decoration: none;
         }
         .dropdown {
+            margin-right: 10px;
             position: relative;
         }
         .dropdown-content {
@@ -91,21 +189,21 @@
             display: inline-block;
             padding: 8px 12px;
             color: white;
-            background-color: #ff4d4d; /* Red background for cancellation */
-            border-radius: 5px;
-            text-decoration: none; /* Remove underline */
-            transition: background-color 0.3s; /* Smooth transition for hover effect */
-            font-size: 16px; /* Adjust font size as needed */
-            align-items: center; /* Align icon and text */
+            background-color: #ff4d4d;
+            border-radius:30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            align-items: center;
             margin-right: 30px;
         }
 
         .cancel-booking-btn i {
-            margin-right: 5px; /* Space between icon and text */
+            margin-right: 5px;
         }
 
         .cancel-booking-btn:hover {
-            background-color: #cc0000; /* Darker red on hover */
+            background-color: #cc0000;
         }
         .search-container form {
             display: flex;
@@ -184,7 +282,7 @@
         </a>
 
 
-        <div class="dropdown">
+        <div class="dropdown" >
             <span><%= user.getFullName() %></span>
 
             <div class="dropdown-content">
