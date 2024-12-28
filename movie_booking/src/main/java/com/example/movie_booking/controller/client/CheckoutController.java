@@ -113,15 +113,22 @@ public class CheckoutController extends HttpServlet {
             return;
         }
 
-        String totalPriceStr = request.getParameter("total");
-        double totalPrice = 0.0;
+        String totalPriceStr = request.getParameter("total"); // This is the price in LKR
+        double totalPriceLKR = 0.0;
         try {
-            totalPrice = Double.parseDouble(totalPriceStr);
+            totalPriceLKR = Double.parseDouble(totalPriceStr);
         } catch (NumberFormatException e) {
             System.out.println("Invalid totalPrice value: " + totalPriceStr);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid total price in booking details.");
             return;
         }
+
+// Convert LKR to USD, e.g. 1 USD = 320 LKR
+        double exchangeRate = 1.0 / 320.0;
+        double totalPriceUSD = totalPriceLKR * exchangeRate;
+
+        System.out.println("LKR Price: " + totalPriceLKR + " => USD Price: " + totalPriceUSD);
+
 
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -139,7 +146,7 @@ public class CheckoutController extends HttpServlet {
                     request.getServerName(),
                     request.getServerPort(),
                     request.getScheme(),
-                    totalPrice,
+                    totalPriceUSD,
                     bookingDetails.getOrDefault("movieName", "Movie Ticket").toString(),
                     user.getFullName()
             );
