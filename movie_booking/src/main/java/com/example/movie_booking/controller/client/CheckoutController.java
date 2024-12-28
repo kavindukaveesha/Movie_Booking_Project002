@@ -22,8 +22,8 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/make-checkout", "/checkout-method"})
 public class CheckoutController extends HttpServlet {
     private BookingService bookingService;
-    private static final String PAYPAL_CLIENT_ID = "AfgiwoMbSMggSrBiQwGcxL4-vPRHz5WRXE0BacblgkX-2R7gDvqx3kPoQZx4juz_MRSaA8VoEo2jykP7";
-    private static final String PAYPAL_CLIENT_SECRET = "ED1YXD5bbmyHhFI5bN9sTq-2UmzegPx1STeh6F3eqCIeBZ8OsVA5tFdN1cs4bO56PH0vQrYLQdJv_tr_";
+    private static final String PAYPAL_CLIENT_ID = "AYKZWCAXHKEDccJ9dBKTg2th-ZY1vti2Ymxeun4sAtKgMUvgmvXxqqgiYGdpj8jYevPn22VDbbuIK5xS";
+    private static final String PAYPAL_CLIENT_SECRET = "EPskKFZ-wPXVRlLbQ0Rk8rfBTvuNq1ZwzifvRafkjJVobEMSHtgb2sWKbYn6SRoq3BUZFa1uqpIjHbyQ";
     private static final String MODE = "sandbox";
 
     @Override

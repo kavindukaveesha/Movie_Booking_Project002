@@ -297,7 +297,7 @@
 <jsp:include page="/components/client-footer.jsp"/>
 
 <!-- Replace the existing script section with this -->
-<script src="https://www.paypal.com/sdk/js?client-id=your_paypal_client_id&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AYKZWCAXHKEDccJ9dBKTg2th-ZY1vti2Ymxeun4sAtKgMUvgmvXxqqgiYGdpj8jYevPn22VDbbuIK5xS&currency=USD"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Update totals
