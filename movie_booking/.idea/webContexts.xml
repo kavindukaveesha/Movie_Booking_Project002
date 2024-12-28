@@ -10,7 +10,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/auth/sign-in.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/auth" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/auth/sign-up.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/auth" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/client/movie-details.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/client" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/client/seatbooking.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/client/seatbooking.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
   </component>

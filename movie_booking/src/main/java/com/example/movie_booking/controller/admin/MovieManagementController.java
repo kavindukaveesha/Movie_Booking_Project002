@@ -2,6 +2,7 @@ package com.example.movie_booking.controller.admin;
 
 import com.example.movie_booking.model.Movie;
 import com.example.movie_booking.model.Showtime;
+import com.example.movie_booking.service.BookingService;
 import com.example.movie_booking.service.MovieService;
 import com.example.movie_booking.service.ShowtimeService;
 import jakarta.servlet.*;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 
+
 @WebServlet(urlPatterns = {
         "/admin/movie-management",
 
@@ -29,6 +31,20 @@ public class MovieManagementController extends HttpServlet {
 
     MovieService movieService = new MovieService();
     ShowtimeService showtimeService = new ShowtimeService();
+    private static final String UPLOAD_PATH = "";
+
+    public void dindDbPath(String dbPath) {
+        if(dbPath != null) {
+            System.out.println("dbpath are null");
+        }
+    }
+
+    private static final String MODE = "sandbox";
+
+    @Override
+    public void init() {
+        dindDbPath(UPLOAD_PATH);
+    }
 
 
     @Override
@@ -96,7 +112,6 @@ public class MovieManagementController extends HttpServlet {
 
 //-------------------------------------------------Add-Movie----------------------------------------------------------------------------------
 
-    private static final String UPLOAD_PATH = "/Users/kavindu/Developer/Projects/Movie_Booking_Project002/movie_booking/src/main/webapp/DBImages";
 
     private void addMovie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

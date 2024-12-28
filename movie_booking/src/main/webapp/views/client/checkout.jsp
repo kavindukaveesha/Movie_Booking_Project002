@@ -276,17 +276,17 @@
             <div class="details">
                 <div class="row">
                     <span>Sub Total</span>
-                    <span id="subtotal">$. <%= totalPrice %></span>
+                    <span id="subtotal">Rs. <%= totalPrice %></span>
                 </div>
                 <br><br>
                 <div class="row">
                     <span>Booking Fee</span>
-                    <span id="booking-fee">$. 20</span>
+                    <span id="booking-fee">Rs. 20</span>
                 </div>
                 <br><br>
                 <div class="row total">
                     <span>Total</span>
-                    <span id="total">$. <%= finalTotal %></span>
+                    <span id="total">Rs. <%= finalTotal %></span>
                 </div>
             </div>
         </aside>
@@ -309,7 +309,7 @@
         var subtotal = <%= bookingDetails.get("totalPrice") %>;
         var bookingFee = 20;
         var total = subtotal + bookingFee;
-        totalElement.innerHTML = '$. ' + total;
+        totalElement.innerHTML = 'Rs. ' + total;
     }
 </script>
 

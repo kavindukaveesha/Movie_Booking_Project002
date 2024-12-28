@@ -269,7 +269,7 @@
 
     <div class="search-container">
         <form action="<%= request.getContextPath() %>/movies" method="post">
-            <input type="text" placeholder="Search movies..." name="movie">
+            <input type="text" placeholder="Search movies..." class="searchInput" name="movie">
             <button type="submit"><i class="fas fa-search"></i> Search</button>
         </form>
     </div>

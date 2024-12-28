@@ -124,7 +124,7 @@
         }
         .recommendation-item .title {
             position: absolute;
-            top: 60%;
+            top: 55%;
             bottom: 10px;
             left: 10px;
             color: white;
@@ -185,7 +185,7 @@
                 </div>
             </div>
             <div class="recommendations-grid">
-                <c:forEach var="recommendation" items="${movies}" varStatus="status">
+                <c:forEach var="recommendation" items="${movies}" varStatus="status" begin="1" end="3">
                     <c:if test="${recommendation.id != movie.id}"> <!-- Ensure not showing the current movie -->
                         <div class="recommendation-item">
                             <img src="${pageContext.request.contextPath}/DBImages/${recommendation.imageUrl}" alt="${recommendation.title}">

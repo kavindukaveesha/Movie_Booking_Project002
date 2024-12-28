@@ -14,4 +14,9 @@
         <servlet-name>DefaultServlet</servlet-name>
         <url-pattern>/DBImages/*</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DefaultServlet</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
 </web-app>
