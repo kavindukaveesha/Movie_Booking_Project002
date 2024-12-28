@@ -233,6 +233,150 @@
             margin-bottom: 10px;
         }
 
+
+        .booking-container {
+            display: flex;
+            gap: 2rem;
+            padding: 1.5rem;
+        }
+
+        .seat-summary {
+            width: 25%;
+            background-color: #2D1B69;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .seat-summary h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .selected-seats-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .selected-seat-tag {
+            background-color: #3D2B79;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .price-breakdown {
+            margin-bottom: 1.5rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-row {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .purchase-button {
+            width: 100%;
+            background-color: #FFD700;
+            color: black;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-foods-button {
+            width: 100%;
+            background-color: #3D2B79;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            border: 1px solid #4D3B89;
+            cursor: pointer;
+        }
+
+        .seat-map-container {
+            flex: 1;
+            background-color: rgba(45,27,105,0.5);
+            border-radius: 0.5rem;
+            padding: 2rem;
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+        }
+
+        .seat-demo {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .screen-line {
+            background-color: #FFD700;
+            height: 0.25rem;
+            width: 100%;
+            margin-bottom: 3rem;
+            border-radius: 0.25rem;
+        }
+
+        .seats-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .seat-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .row-label {
+            color: white;
+            width: 1.5rem;
+        }
+
+        .seats {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .seat {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .seat.normal { background-color: #BAE6FD; }
+        .seat.deluxe { background-color: #FED7AA; }
+        .seat.super { background-color: #FBCFE8; }
+        .seat.sold {
+            background-color: #EF4444;
+            cursor: not-allowed;
+        }
+        .seat.selected { background-color: #FFD700; }
+
     </style>
 </head>
 <body>
@@ -277,27 +421,65 @@
     </div>
 
     <!-- Seat Map -->
-    <div class="seat-map" id="seatMap">
-        <h2>Select Your Seats</h2>
+    <!-- Replace the existing seat-map div with this code -->
+    <div class="booking-container">
+        <div class="seat-summary">
+            <h2>Your selected seats</h2>
+            <p class="seat-count">0 seats</p>
+            <div class="selected-seats-list"></div>
 
-        <!-- Column Labels -->
-        <div class="column-labels">
-            <span class="row-label"></span>
-            <c:forEach begin="1" end="10" var="col">
-                <span class="column-label">${col}</span>
-            </c:forEach>
+            <div class="price-breakdown">
+                <div class="price-row normal-row">
+                    <span>Normal</span>
+                    <span class="count">-</span>
+                    <span class="price">-</span>
+                </div>
+                <div class="price-row deluxe-row">
+                    <span>Deluxe</span>
+                    <span class="count">-</span>
+                    <span class="price">-</span>
+                </div>
+                <div class="price-row super-row">
+                    <span>Super</span>
+                    <span class="count">-</span>
+                    <span class="price">-</span>
+                </div>
+                <div class="price-row total-row">
+                    <span>Total</span>
+                    <span class="total-price">Rs.0</span>
+                </div>
+            </div>
+
+            <button class="purchase-button" type="submit" form="bookingForm">Purchase</button>
+            <button class="add-foods-button">+ Add Foods</button>
         </div>
 
-        <!-- Rows -->
-        <c:forEach var="row" items="${['A', 'B', 'C', 'D', 'E']}">
-            <div class="seat-row">
-                <span class="row-label">${row}</span>
-                <c:forEach begin="1" end="10" var="col">
-                    <div class="seat ${row == 'A' && col == 2 || row == 'B' && col == 3 || row == 'C' && col == 4 ? 'sold' : ''}"
-                         data-seat-number="${row}${col}"></div>
-                </c:forEach>
+        <div class="seat-map-container">
+            <div class="seat-legend">
+                <div class="legend-item">
+                    <span class="seat-demo normal"></span>
+                    <span>Normal</span>
+                </div>
+                <div class="legend-item">
+                    <span class="seat-demo deluxe"></span>
+                    <span>Deluxe</span>
+                </div>
+                <div class="legend-item">
+                    <span class="seat-demo super"></span>
+                    <span>Super</span>
+                </div>
+                <div class="legend-item">
+                    <span class="seat-demo sold"></span>
+                    <span>Sold</span>
+                </div>
             </div>
-        </c:forEach>
+
+            <div class="screen-line"></div>
+
+            <div class="seats-grid">
+                <!-- Seats will be generated by JavaScript -->
+            </div>
+        </div>
     </div>
 
     <!-- Selected Info -->
@@ -327,60 +509,146 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const nextButton = document.getElementById('nextButton');
-        const seatMap = document.getElementById('seatMap');
-        const selectedInfo = document.getElementById('selectedInfo');
-        const seats = document.querySelectorAll('.seat:not(.sold)');
-        const selectedSeatsElement = document.getElementById('selected-seats');
-        const totalPriceElement = document.getElementById('total-price');
-        const form = document.getElementById('bookingForm');
+        const seatsGrid = document.querySelector('.seats-grid');
+        const selectedSeatsList = document.querySelector('.selected-seats-list');
+        const seatCount = document.querySelector('.seat-count');
+        const normalRow = document.querySelector('.normal-row');
+        const deluxeRow = document.querySelector('.deluxe-row');
+        const superRow = document.querySelector('.super-row');
+        const totalPrice = document.querySelector('.total-price');
+        const seatMap = document.querySelector('.booking-container');
+        const nextButton = document.querySelector('.next-button');
 
-        const dateDropdown = document.getElementById('date');
-        const timeDropdown = document.getElementById('time');
-        const theaterDropdown = document.getElementById('theater');
 
-        const showIdField = document.getElementById('showIdField');
-        const showDateField = document.getElementById('showDateField');
-        const showTimeField = document.getElementById('showTimeField');
-        const selectedSeatsField = document.getElementById('selectedSeatsField');
-        const totalPriceField = document.getElementById('totalPriceField');
 
-        const pricePerSeat = ${movie.price}; // Price per seat
-        let selectedSeats = new Set();
+        seatMap.style.display = 'none';
 
-        // Show seat map and selected info on "Next" button click
+        // Show seats when Next is clicked
         nextButton.addEventListener('click', () => {
             seatMap.style.display = 'flex';
-            selectedInfo.style.display = 'block';
 
-            showIdField.value = theaterDropdown.value;
-            showDateField.value = dateDropdown.value;
-            showTimeField.value = timeDropdown.value;
+            // Scroll to seat map
+            seatMap.scrollIntoView({ behavior: 'smooth' });
 
-            window.scrollTo({ top: seatMap.offsetTop, behavior: 'smooth' });
+            // Update form fields with selected date/time/theater
+            const dateField = document.getElementById('showDateField');
+            const timeField = document.getElementById('showTimeField');
+            const theaterField = document.getElementById('showIdField');
+
+            dateField.value = document.getElementById('date').value;
+            timeField.value = document.getElementById('time').value;
+            theaterField.value = document.getElementById('theater').value;
+        });
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        const seatsPerRow = 12;
+        const selectedSeats = new Set();
+
+        const prices = {
+            normal: 100,
+            deluxe: 150,
+            super: 200
+        };
+
+
+
+
+        function getSeatCategory(row) {
+            if (row === 'A' || row === 'B') return 'normal';
+            if (row === 'C' || row === 'D' || row === 'E') return 'deluxe';
+            return 'super';
+        }
+
+        // Generate seats
+        rows.forEach(row => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'seat-row';
+
+            const label = document.createElement('span');
+            label.className = 'row-label';
+            label.textContent = row;
+            rowDiv.appendChild(label);
+
+            const seatsDiv = document.createElement('div');
+            seatsDiv.className = 'seats';
+
+            for (let i = 1; i <= seatsPerRow; i++) {
+                const seatId = `${row}${i}`;
+                const seat = document.createElement('button');
+                seat.className = `seat ${getSeatCategory(row)}`;
+
+                // Mark sold seats
+                if ((row === 'A' && i === 2) ||
+                    (row === 'B' && i === 3) ||
+                    (row === 'C' && i === 4)) {
+                    seat.className = 'seat sold';
+                    seat.disabled = true;
+                }
+
+                seat.dataset.seatId = seatId;
+                seatsDiv.appendChild(seat);
+            }
+
+            rowDiv.appendChild(seatsDiv);
+            seatsGrid.appendChild(rowDiv);
         });
 
         // Handle seat selection
-        seats.forEach(seat => {
-            seat.addEventListener('click', () => {
-                const seatNumber = seat.dataset.seatNumber;
+        seatsGrid.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('seat') || e.target.classList.contains('sold')) return;
 
-                if (seat.classList.contains('selected')) {
-                    seat.classList.remove('selected');
-                    selectedSeats.delete(seatNumber);
-                } else {
-                    seat.classList.add('selected');
-                    selectedSeats.add(seatNumber);
-                }
+            const seatId = e.target.dataset.seatId;
+            e.target.classList.toggle('selected');
 
-                const selectedSeatsArray = Array.from(selectedSeats);
-                selectedSeatsElement.textContent = selectedSeatsArray.join(', ') || 'None';
-                totalPriceElement.textContent = selectedSeats.size * pricePerSeat;
+            if (selectedSeats.has(seatId)) {
+                selectedSeats.delete(seatId);
+            } else {
+                selectedSeats.add(seatId);
+            }
 
-                selectedSeatsField.value = selectedSeatsArray.join(',');
-                totalPriceField.value = selectedSeats.size * pricePerSeat;
-            });
+            updateSummary();
         });
+
+        function updateSummary() {
+            // Update seat count
+            seatCount.textContent = `${selectedSeats.size} seats`;
+
+            // Update selected seats list
+            selectedSeatsList.innerHTML = Array.from(selectedSeats)
+                .map(seat => `<span class="selected-seat-tag">${seat}</span>`)
+                .join('');
+
+            // Calculate prices by category
+            const counts = { normal: 0, deluxe: 0, super: 0 };
+            selectedSeats.forEach(seatId => {
+                const category = getSeatCategory(seatId[0]);
+                counts[category]++;
+            });
+
+            // Update price breakdown
+            function updateCategoryRow(row, count, category) {
+                if (count > 0) {
+                    row.querySelector('.count').textContent = count;
+                    row.querySelector('.price').textContent = `Rs.${count * prices[category]}`;
+                    row.style.display = 'flex';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+
+            updateCategoryRow(normalRow, counts.normal, 'normal');
+            updateCategoryRow(deluxeRow, counts.deluxe, 'deluxe');
+            updateCategoryRow(superRow, counts.super, 'super');
+
+            // Update total
+            const total = Object.entries(counts)
+                .reduce((sum, [category, count]) => sum + count * prices[category], 0);
+            totalPrice.textContent = `Rs.${total}`;
+
+            // Update form fields
+            document.getElementById('selectedSeatsField').value = Array.from(selectedSeats).join(',');
+            document.getElementById('totalPriceField').value = total;
+        }
     });
 </script>
 </body>
