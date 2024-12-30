@@ -2,9 +2,6 @@
 
 A comprehensive **Java EE-based movie booking system** designed to provide seamless ticket booking experiences for users and robust management capabilities for administrators.
 
-[![Build Status](https://img.shields.io/travis/your-username/movie-booking-system?style=flat-square)](https://travis-ci.org/your-username/movie-booking-system)  
-[![License](https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square)](LICENSE)
-
 ---
 
 ## 📜 Table of Contents
@@ -135,7 +132,7 @@ A comprehensive **Java EE-based movie booking system** designed to provide seaml
 * Real-time notifications for booking updates.
   
 ## 👥 Contributors
-* Pasith Nissanka()
-* Dinesh Hashan()
-* Kavindu Kaveesha()
+* Pasith Nishshanka(https://github.com/pasithNishshanka)
+* Dinesh Hashan(https://github.com/KDHBuddhika)
+* Kavindu Kaveesha(https://github.com/kavindukaveesha)
 
