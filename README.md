@@ -72,101 +72,85 @@ A comprehensive Java EE-based movie booking system designed to provide seamless 
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/movie-booking-system.git
-Use code with caution.
-Markdown
-Import the project into your IDE.
+* Use code with caution.
+* Markdown
+* Import the project into your IDE.
 
-Configure the database.properties file with your MySQL credentials.
+* Configure the database.properties file with your MySQL credentials.
 
-Run the SQL scripts in the database folder to create necessary tables.
+* Run the SQL scripts in the database folder to create necessary tables.
 
-Build the project using Maven:
+* Build the project using Maven:
 
-mvn clean install
-Use code with caution.
-Bash
-Deploy the WAR file to Tomcat.
+* mvn clean install
+   * Use code with caution.
+* Bash
+* Deploy the WAR file to Tomcat.
 
-User Flow
-Browse Movies: Home page lists featured movies.
+## User Flow
+* Browse Movies: Home page lists featured movies.
 
-View Movie Details: Click on a movie to see its details.
+* View Movie Details: Click on a movie to see its details.
 
-Book Tickets:
+* Book Tickets:
 
-Select a showtime, theater, and seats.
+* Select a showtime, theater, and seats.
 
-Proceed to checkout.
+* Proceed to checkout.
 
-Complete payment via PayPal.
+* Complete payment via PayPal.
 
-Receive Confirmation: Booking confirmation email is sent.
+* Receive Confirmation: Booking confirmation email is sent.
 
-Manage Account: Reset password or update profile via email verification.
+* Manage Account: Reset password or update profile via email verification.
 
-Screenshots
-Home Page:
+## Screenshots
+* Home Page:
 ![alt text](images/homepage.png)
 
-Movie Details:
+* Movie Details:
 ![alt text](images/moviedetails.png)
 
-Seat Booking:
+* Seat Booking:
 ![alt text](images/seatbooking.png)
 
-Checkout:
+* Checkout:
 ![alt text](images/checkout.png)
 
-Admin Dashboard:
+* Admin Dashboard:
 ![alt text](images/admindashboard.png)
 
-Admin Panel
-Login: Secure admin login.
+## Admin Panel
+* Login: Secure admin login.
 
-Manage Movies: Add or update movie details with images.
+* Manage Movies: Add or update movie details with images.
 
-Monitor Bookings: View active and past bookings.
+* Monitor Bookings: View active and past bookings.
 
-Manage Users: View and manage all registered users.
+* Manage Users: View and manage all registered users.
 
-Setup Instructions
-Configure Database: Import the database schema from the database/schema.sql file.
+## Setup Instructions
 
-Setup Email Service: Configure the mail.properties file with your SMTP credentials.
+* Configure Database: Import the database schema from the database/schema.sql file.
 
-Start the Server: Deploy the WAR file to Tomcat.
+* Setup Email Service: Configure the mail.properties file with your SMTP credentials.
 
-Access the application: http://localhost:8080/movie-booking-system (Adjust port and context path if needed).
+* Start the Server: Deploy the WAR file to Tomcat.
 
-Future Enhancements
-Mobile-friendly responsive design.
+* Access the application: http://localhost:8080/movie-booking-system (Adjust port and context path if needed).
 
-Enhanced admin analytics dashboard.
+## Future Enhancements
+* Mobile-friendly responsive design.
 
-Support for additional payment gateways.
+* Enhanced admin analytics dashboard.
 
-Real-time notifications for booking updates.
+* Support for additional payment gateways.
 
-Contributors
-[Your Name](Your GitHub Profile Link)
+* Real-time notifications for booking updates.
 
-Important:
+## Contributors
+Pasith Nissanka(https://github.com/pasithNishshanka)
+Dinesh Hashan(https://github.com/KDHBuddhika)
+Kavindu kaveesha(https://github.com/kavindukaveesha)
 
-Replace your-username with your actual GitHub username.
 
-Replace placeholder image paths (e.g., images/homepage.png) with the actual paths to your screenshots within the repository. Create an images folder in your repository root and place the screenshots there. The paths are relative to the README file.
-
-Consider adding a license (e.g., MIT License) to your project. Create a LICENSE file in the root.
-
-A good practice is to add a .gitignore file to exclude build files and other artifacts that shouldn't be version controlled.
-
-This improved README provides:
-
-* **Clearer structure and formatting:**  Uses headings, lists, and code blocks effectively.
-* **GitHub-specific elements:**  Includes a (optional) build status badge and contributor links.
-* **Corrected image paths:** Shows how to reference images within the repository correctly.
-* **More complete setup instructions:**  Provides more details on configuration and access.
-* **Call to action for contributors:** Makes it easier for others to get involved.
-* **Important notes:**  Highlights key considerations like licensing and `.gitignore`.
-Use code with caution.
-42.9s
