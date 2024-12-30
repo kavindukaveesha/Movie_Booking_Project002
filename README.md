@@ -72,78 +72,70 @@ A comprehensive **Java EE-based movie booking system** designed to provide seaml
 1. Clone the repository:
    ```bash
    git clone https://github.com/kavindukaveesha/Movie_Booking_Project002.git
-Import the project into your IDE.
-Configure the database.properties file with your MySQL credentials.
-Run the SQL scripts in the database/ folder to create necessary tables.
-Build the project using Maven:
-bash
-Copy code
-mvn clean install
-Deploy the WAR file to Tomcat.
-📖 User Flow
-Browse Movies: Home page lists featured movies.
-View Movie Details: Click on a movie to see its details.
-Book Tickets:
-Select a showtime, theater, and seats.
-Proceed to checkout.
-Complete payment via PayPal.
-Receive Confirmation: Booking confirmation email is sent.
-Manage Account: Reset password or update profile via email verification.
-📷 Screenshots
-🏠 Home Page
+2. Import the project into your IDE.
+3. Configure the database.properties file with your MySQL credentials.
+4. Run the SQL scripts in the database/ folder to create necessary tables.
+5. Build the project using Maven:
+* bash
+* Copy code
+* mvn clean install
+* Deploy the WAR file to Tomcat.
+
+## 📖 User Flow
+* Browse Movies: Home page lists featured movies.
+* View Movie Details: Click on a movie to see its details.
+* Book Tickets:
+* Select a showtime, theater, and seats.
+* Proceed to checkout.
+* Complete payment via PayPal.
+* Receive Confirmation: Booking confirmation email is sent.
+* Manage Account: Reset password or update profile via email verification.
+  
+## 📷 Screenshots
+* 🏠 Home Page
 
 
-🎞️ Movie Details
+* 🎞️ Movie Details
 
 
-🎟️ Seat Booking
+* 🎟️ Seat Booking
 
 
-🛒 Checkout
+* 🛒 Checkout
+  
 
-📊 Admin Dashboard
-
-
-🔒 Admin Panel
-Login: Secure admin login.
-Manage Movies: Add or update movie details with images.
-Monitor Bookings: View active and past bookings.
-Manage Users: View and manage all registered users.
-⚙️ Setup Instructions
-Configure Database:
-Import the database schema from the database/schema.sql file.
-
-Setup Email Service:
-Configure the mail.properties file with your SMTP credentials.
-
-Start the Server:
-Deploy the WAR file to Tomcat and access the application at:
-
-bash
-Copy code
-http://localhost:8080/movie-booking-system
-(Adjust port and context path if needed.)
-
-🌟 Future Enhancements
-Mobile-friendly responsive design.
-Enhanced admin analytics dashboard.
-Support for additional payment gateways.
-Real-time notifications for booking updates.
-👥 Contributors
-Pasith Nissanka
-Dinesh Hashan
-Kavindu Kaveesha
-Feel free to update the placeholder text with your project-specific details, like paths to screenshots or contributor links.
-
-Copy code
+* 📊 Admin Dashboard
 
 
+##🔒 Admin Panel
+* Login: Secure admin login.
+* Manage Movies: Add or update movie details with images.
+* Monitor Bookings: View active and past bookings.
+8 Manage Users: View and manage all registered users.
+  
+## ⚙️ Setup Instructions
+* Configure Database:
+* Import the database schema from the database/schema.sql file.
 
+## Setup Email Service:
+* Configure the mail.properties file with your SMTP credentials.
 
+## Start the Server:
+* Deploy the WAR file to Tomcat and access the application at:
 
+*bash
+*Copy code
+*http://localhost:8080/movie-booking-system
+*(Adjust port and context path if needed.)
 
+## 🌟 Future Enhancements
+* Mobile-friendly responsive design.
+* Enhanced admin analytics dashboard.
+* Support for additional payment gateways.
+* Real-time notifications for booking updates.
+  
+## 👥 Contributors
+* Pasith Nissanka()
+* Dinesh Hashan()
+* Kavindu Kaveesha()
 
-
-
-
-ChatGPT can make mistakes. Check important info.
