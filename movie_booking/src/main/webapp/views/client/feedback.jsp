@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="styles.css" rel="stylesheet"/> <!-- If you have external CSS -->
     <style>
-        /* RESET / BASE STYLES */
+
         * {
             margin: 0;
             padding: 0;
@@ -174,7 +174,7 @@
     </c:if>
 
     <!-- FEEDBACK FORM -->
-    <form class="feedback-form" action="SubmitFeedbackServlet" method="post">
+    <form class="feedback-form" action="${pageContext.request.contextPath}/review-us" method="post">
         <div class="header-inputs">
             <div class="input-group">
                 <label>Name</label>
@@ -192,11 +192,11 @@
         <div class="question-group">
             <div class="question">How would you rate your overall experience?</div>
             <div class="rating">
-                <input type="checkbox" name="experience[]" value="1" />
-                <input type="checkbox" name="experience[]" value="2" />
-                <input type="checkbox" name="experience[]" value="3" />
-                <input type="checkbox" name="experience[]" value="4" />
-                <input type="checkbox" name="experience[]" value="5" />
+                <label><input type="radio" name="experience" value="1" required /> 1</label>
+                <label><input type="radio" name="experience" value="2" /> 2</label>
+                <label><input type="radio" name="experience" value="3" /> 3</label>
+                <label><input type="radio" name="experience" value="4" /> 4</label>
+                <label><input type="radio" name="experience" value="5" /> 5</label>
             </div>
         </div>
 
@@ -204,11 +204,11 @@
         <div class="question-group">
             <div class="question">Was the online ticket reservation process easy to use?</div>
             <div class="rating">
-                <input type="checkbox" name="ticketEase[]" value="1" />
-                <input type="checkbox" name="ticketEase[]" value="2" />
-                <input type="checkbox" name="ticketEase[]" value="3" />
-                <input type="checkbox" name="ticketEase[]" value="4" />
-                <input type="checkbox" name="ticketEase[]" value="5" />
+                <label><input type="radio" name="ticketEase" value="1" required /> 1</label>
+                <label><input type="radio" name="ticketEase" value="2" /> 2</label>
+                <label><input type="radio" name="ticketEase" value="3" /> 3</label>
+                <label><input type="radio" name="ticketEase" value="4" /> 4</label>
+                <label><input type="radio" name="ticketEase" value="5" /> 5</label>
             </div>
         </div>
 
@@ -216,11 +216,11 @@
         <div class="question-group">
             <div class="question">Did you encounter any issues with online payments?</div>
             <div class="rating">
-                <input type="checkbox" name="payments[]" value="1" />
-                <input type="checkbox" name="payments[]" value="2" />
-                <input type="checkbox" name="payments[]" value="3" />
-                <input type="checkbox" name="payments[]" value="4" />
-                <input type="checkbox" name="payments[]" value="5" />
+                <label><input type="radio" name="payments" value="1" required /> 1</label>
+                <label><input type="radio" name="payments" value="2" /> 2</label>
+                <label><input type="radio" name="payments" value="3" /> 3</label>
+                <label><input type="radio" name="payments" value="4" /> 4</label>
+                <label><input type="radio" name="payments" value="5" /> 5</label>
             </div>
         </div>
 
@@ -228,11 +228,11 @@
         <div class="question-group">
             <div class="question">How satisfied were you with the cleanliness of the cinema?</div>
             <div class="rating">
-                <input type="checkbox" name="cleanliness[]" value="1" />
-                <input type="checkbox" name="cleanliness[]" value="2" />
-                <input type="checkbox" name="cleanliness[]" value="3" />
-                <input type="checkbox" name="cleanliness[]" value="4" />
-                <input type="checkbox" name="cleanliness[]" value="5" />
+                <label><input type="radio" name="cleanliness" value="1" required /> 1</label>
+                <label><input type="radio" name="cleanliness" value="2" /> 2</label>
+                <label><input type="radio" name="cleanliness" value="3" /> 3</label>
+                <label><input type="radio" name="cleanliness" value="4" /> 4</label>
+                <label><input type="radio" name="cleanliness" value="5" /> 5</label>
             </div>
         </div>
 
@@ -240,11 +240,11 @@
         <div class="question-group">
             <div class="question">How would you rate the sound and picture quality?</div>
             <div class="rating">
-                <input type="checkbox" name="quality[]" value="1" />
-                <input type="checkbox" name="quality[]" value="2" />
-                <input type="checkbox" name="quality[]" value="3" />
-                <input type="checkbox" name="quality[]" value="4" />
-                <input type="checkbox" name="quality[]" value="5" />
+                <label><input type="radio" name="quality" value="1" required /> 1</label>
+                <label><input type="radio" name="quality" value="2" /> 2</label>
+                <label><input type="radio" name="quality" value="3" /> 3</label>
+                <label><input type="radio" name="quality" value="4" /> 4</label>
+                <label><input type="radio" name="quality" value="5" /> 5</label>
             </div>
         </div>
 
@@ -252,11 +252,11 @@
         <div class="question-group">
             <div class="question">How was your experience with the staff?</div>
             <div class="rating">
-                <input type="checkbox" name="staff[]" value="1" />
-                <input type="checkbox" name="staff[]" value="2" />
-                <input type="checkbox" name="staff[]" value="3" />
-                <input type="checkbox" name="staff[]" value="4" />
-                <input type="checkbox" name="staff[]" value="5" />
+                <label><input type="radio" name="staff" value="1" required /> 1</label>
+                <label><input type="radio" name="staff" value="2" /> 2</label>
+                <label><input type="radio" name="staff" value="3" /> 3</label>
+                <label><input type="radio" name="staff" value="4" /> 4</label>
+                <label><input type="radio" name="staff" value="5" /> 5</label>
             </div>
         </div>
 

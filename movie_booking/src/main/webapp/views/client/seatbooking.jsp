@@ -324,8 +324,6 @@
         <input type="hidden" name="action" value="make-checkout">
         <input type="hidden" name="movieName" value="${movie.title}">
         <input type="hidden" name="movieId" value="${movie.id}">
-
-        <!-- Dynamically filled from JavaScript -->
         <input type="hidden" name="showId" id="showIdField">
         <input type="hidden" name="showDate" id="showDateField">
         <input type="hidden" name="showTime" id="showTimeField">
@@ -355,6 +353,11 @@
         const selectedSeatsField = document.getElementById('selectedSeatsField');
         const totalPriceField    = document.getElementById('totalPriceField');
 
+        // Dropdown elements
+        const dateDropdown       = document.getElementById('date');
+        const timeDropdown       = document.getElementById('time');
+        const theaterDropdown    = document.getElementById('theater');
+
         // Pricing
         const seatPrices = {
             normal: 200,
@@ -382,11 +385,6 @@
 
                     // Add classes
                     seat.classList.add('seat', seatType);
-
-                    // (Optional) randomly mark some seats as "sold"
-                    // if (Math.random() < 0.2) {
-                    //     seat.classList.add('sold');
-                    // }
 
                     // On click => add/remove from selectedSeats
                     seat.addEventListener('click', function() {
@@ -436,9 +434,13 @@
             seatMapElement.style.display = 'grid';
 
             // Fill hidden fields
-            showIdField.value   = theaterDropdown.value;
-            showDateField.value = dateDropdown.value;
-            showTimeField.value = timeDropdown.value;
+            const selectedDate = dateDropdown.value;
+            const selectedTime = timeDropdown.value;
+            const selectedTheater = theaterDropdown.value;
+
+            showDateField.value = selectedDate;
+            showTimeField.value = selectedTime;
+            showIdField.value = selectedTheater;
 
             // Scroll to seat map
             seatMapElement.scrollIntoView({ behavior: 'smooth' });
@@ -457,12 +459,19 @@
             selectedSeatsField.value = seatNamesCSV;
             totalPriceField.value    = totalAmount;
 
+            // Ensure date and time are set
+            if (!showDateField.value || !showTimeField.value) {
+                alert('Please select a date and time before proceeding.');
+                return;
+            }
+
             form.submit();
         });
 
         // Generate map initially (but hidden until Next)
         generateSeatMap();
     });
+
 </script>
 
 </body>

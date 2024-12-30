@@ -283,7 +283,12 @@
 
 
         <div class="dropdown" >
-            <span><%= user.getFullName() %></span>
+            <%
+                String fullName = user.getFullName();
+                String displayName = fullName.length() > 10 ? fullName.substring(0, 10) + "..." : fullName;
+            %>
+            <span><%= displayName %></span>
+
 
             <div class="dropdown-content">
                 <a href="<%= request.getContextPath() %>/logout">Sign Out</a>

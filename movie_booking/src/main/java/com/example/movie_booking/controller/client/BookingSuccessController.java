@@ -75,9 +75,9 @@ public class BookingSuccessController extends HttpServlet {
                 .map(String::trim) // Trim whitespace
                 .collect(Collectors.toList()); // Collect as list of strings
 
-        int bookingId = 0;
+        String bookingId="";
         try {
-            bookingId = generateBookingId(user.getId(), movieTitle, showDate, showTime);
+            bookingId = generateBookingId(movieTitle, user.getId());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error generating booking ID: ", e);
         }
@@ -99,14 +99,30 @@ public class BookingSuccessController extends HttpServlet {
         }
     }
 
-    private int generateBookingId(int userId, String movieName, String date, String time) throws NoSuchAlgorithmException {
+    public String generateBookingId(String movieName, int userId) throws NoSuchAlgorithmException {
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            String input = userId + movieName + date + time;
-            byte[] hash = digest.digest(input.getBytes());
-            return new String(hash).hashCode();
-        } catch (NoSuchAlgorithmException e) {
+            // Generate a unique code using UUID
+            String uniqueCode = generateUniqueCode(movieName + userId);
+
+            // Create the booking ID in the desired format
+            return movieName + userId + uniqueCode;
+        } catch (Exception e) {
             throw new RuntimeException("Failed to generate booking ID", e);
         }
     }
+
+    private String generateUniqueCode(String input) throws NoSuchAlgorithmException {
+        // Hash the input using SHA-256
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = digest.digest(input.getBytes());
+
+        // Convert first 6 bytes of the hash to a readable alphanumeric string
+        StringBuilder uniqueCode = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            uniqueCode.append(Integer.toHexString((hashBytes[i] & 0xFF)));
+        }
+
+        return uniqueCode.toString().toUpperCase(); // Convert to uppercase for better readability
+    }
+
 }

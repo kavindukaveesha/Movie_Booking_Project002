@@ -1,80 +1,70 @@
 <style>
     footer {
-        background-color: rgba(14, 1, 97, 0.65);
+        position: relative;
+        background-color: rgba(42, 0, 102, 1);
         color: #FFFFFF;
-
+        overflow: hidden;
     }
+
+    footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1); /* Adjust opacity here */
+        z-index: 1;
+    }
+
     .footer-content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         padding: 30px;
+        position: relative;
+        z-index: 2; /* Ensures content is above overlay */
     }
+
     .footer-logo {
         display: flex;
         align-items: center;
     }
+
     .footer-logo img {
         width: 30px;
         margin-right: 10px;
     }
+
     .footer-logo span {
         color: #FFD700;
         font-weight: bold;
     }
-    .footer-links a {
-        text-decoration: none;
-        margin-right: 20px;
-    }
-    .social-icons {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .social-icons span {
-        margin-bottom: 10px;
-    }
-    .social-icons-container {
-        display: flex;
-    }
-    .social-icons a {
-        color: #FFFFFF;
-        margin-right: 15px;
-        font-size: 20px;
-    }
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-    .footer-logo {
-        display: flex;
-        align-items: center;
-    }
-    .footer-logo img {
-        width: 30px;
-        margin-right: 10px;
-    }
-    .footer-logo span {
-        color: #FFD700;
-        font-weight: bold;
-    }
+
     .footer-links a {
         color: #FFFFFF;
         text-decoration: none;
         margin-right: 20px;
+        position: relative;
+        z-index: 2;
     }
+
     .social-icons {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        position: relative;
+        z-index: 2;
     }
+
     .social-icons span {
         margin-bottom: 10px;
     }
+
     .social-icons-container {
         display: flex;
     }
+
     .social-icons a {
         color: #FFFFFF;
         margin-right: 15px;
@@ -86,11 +76,17 @@
         height: 1px;
         background-color: rgba(255, 255, 255, 0.2);
         margin: 30px 0;
+        position: relative;
+        z-index: 2;
     }
-    .copyright{
+
+    .copyright {
         text-align: center;
         padding: 20px 10px;
+        position: relative;
+        z-index: 2;
     }
+
 </style>
 <footer>
     <div class="footer-content">

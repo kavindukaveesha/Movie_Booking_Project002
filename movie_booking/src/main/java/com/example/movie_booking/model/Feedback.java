@@ -7,19 +7,55 @@ public class Feedback {
     private int id;
     private String name;
     private String email;
-    private int[] experience;
-    private int[] ticketEase;
-    private int[] payments;
-    private int[] cleanliness;
-    private int[] quality;
-    private int[] staff;
-    private String suggestions;
-    private int totalSelections;
+    private int experience;
+    private int ticketEase;
+    private int payments;
+    private int cleanliness;
+    private int quality;
+    private int staff;
     private int totalRate;
+    private String suggestions;
     private Timestamp submissionDate;
 
+    // Default Constructor
+    public Feedback() {
+    }
 
-    // ID
+    // Constructor with all fields
+    public Feedback(int id, String name, String email, int experience, int ticketEase, int payments,
+                    int cleanliness, int quality, int staff, int totalRate, String suggestions, Timestamp submissionDate) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.experience = experience;
+        this.ticketEase = ticketEase;
+        this.payments = payments;
+        this.cleanliness = cleanliness;
+        this.quality = quality;
+        this.staff = staff;
+        this.totalRate = totalRate;
+        this.suggestions = suggestions;
+        this.submissionDate = submissionDate;
+    }
+
+    // Constructor without ID (useful for creating new feedback)
+    public Feedback(String name, String email, int experience, int ticketEase, int payments,
+                    int cleanliness, int quality, int staff, int totalRate, String suggestions, Timestamp submissionDate) {
+        this.name = name;
+        this.email = email;
+        this.experience = experience;
+        this.ticketEase = ticketEase;
+        this.payments = payments;
+        this.cleanliness = cleanliness;
+        this.quality = quality;
+        this.staff = staff;
+        this.totalRate = totalRate;
+        this.suggestions = suggestions;
+        this.submissionDate = submissionDate;
+    }
+
+    // Getters and Setters
+
     public int getId() {
         return id;
     }
@@ -28,7 +64,6 @@ public class Feedback {
         this.id = id;
     }
 
-    // Name
     public String getName() {
         return name;
     }
@@ -37,7 +72,6 @@ public class Feedback {
         this.name = name;
     }
 
-    // Email
     public String getEmail() {
         return email;
     }
@@ -46,77 +80,52 @@ public class Feedback {
         this.email = email;
     }
 
-    // Experience
-    public int[] getExperience() {
+    public int getExperience() {
         return experience;
     }
 
-    public void setExperience(int[] experience) {
+    public void setExperience(int experience) {
         this.experience = experience;
     }
 
-    // Ticket Ease
-    public int[] getTicketEase() {
+    public int getTicketEase() {
         return ticketEase;
     }
 
-    public void setTicketEase(int[] ticketEase) {
+    public void setTicketEase(int ticketEase) {
         this.ticketEase = ticketEase;
     }
 
-    // Payments
-    public int[] getPayments() {
+    public int getPayments() {
         return payments;
     }
 
-    public void setPayments(int[] payments) {
+    public void setPayments(int payments) {
         this.payments = payments;
     }
 
-    // Cleanliness
-    public int[] getCleanliness() {
+    public int getCleanliness() {
         return cleanliness;
     }
 
-    public void setCleanliness(int[] cleanliness) {
+    public void setCleanliness(int cleanliness) {
         this.cleanliness = cleanliness;
     }
 
-    // Quality
-    public int[] getQuality() {
+    public int getQuality() {
         return quality;
     }
 
-    public void setQuality(int[] quality) {
+    public void setQuality(int quality) {
         this.quality = quality;
     }
 
-    // Staff
-    public int[] getStaff() {
+    public int getStaff() {
         return staff;
     }
 
-    public void setStaff(int[] staff) {
+    public void setStaff(int staff) {
         this.staff = staff;
-    }
-
-    // Suggestions
-    public String getSuggestions() {
-        return suggestions;
-    }
-
-    public void setSuggestions(String suggestions) {
-        this.suggestions = suggestions;
-    }
-
-
-    // Total Selections
-    public int getTotalSelections() {
-        return totalSelections;
-    }
-
-    public void setTotalSelections(int totalSelections) {
-        this.totalSelections = totalSelections;
     }
 
     public int getTotalRate() {
@@ -127,11 +136,19 @@ public class Feedback {
         this.totalRate = totalRate;
     }
 
+    public String getSuggestions() {
+        return suggestions;
+    }
+
+    public void setSuggestions(String suggestions) {
+        this.suggestions = suggestions;
+    }
+
     public Timestamp getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(Timestamp submissionDate){
+    public void setSubmissionDate(Timestamp submissionDate) {
         this.submissionDate = submissionDate;
     }
 }

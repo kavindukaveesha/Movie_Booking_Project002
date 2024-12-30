@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 12/24/2024
-  Time: 9:45 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -24,11 +18,15 @@
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(to bottom, #000000, #4B0082);
             color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-        }
         .container {
-            width: 100%;
+            flex: 1; /* Pushes footer to the bottom */
         }
+
         header {
             display: flex;
             justify-content: space-between;
@@ -137,6 +135,19 @@
             background-color: rgba(0, 0, 0, 0.7);
             padding: 5px;
             border-radius: 3px;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Ensures the footer is pushed to the bottom */
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
         }
     </style>
 </head>

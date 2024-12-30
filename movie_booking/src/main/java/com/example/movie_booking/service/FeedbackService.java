@@ -6,72 +6,65 @@ import com.example.movie_booking.model.Feedback;
 import java.util.List;
 
 public class FeedbackService {
-    private FeedbackDAO feedbackDAO =new FeedbackDAO();
+    private final FeedbackDAO feedbackDAO;
 
     public FeedbackService() throws Exception {
+        this.feedbackDAO = new FeedbackDAO();
     }
 
-
+    // Submit feedback after validation and calculations
     public void submitFeedback(Feedback feedback) throws Exception {
         try {
             validateFeedback(feedback);
-            calculateTotalSelections(feedback);
-            calculateTotalRate(feedback);
+            calculateAverageRating(feedback);
             feedbackDAO.addFeedback(feedback);
         } catch (Exception e) {
-            throw new Exception("Error submitting feedback: " + e.getMessage());
+            throw new Exception("Error submitting feedback: " + e.getMessage(), e);
         }
     }
 
+    // Fetch all feedback records
     public List<Feedback> getAllFeedback() throws Exception {
         return feedbackDAO.getAllFeedback();
     }
 
+    // Validate feedback fields
     private void validateFeedback(Feedback feedback) throws Exception {
         if (feedback.getName() == null || feedback.getName().trim().isEmpty()) {
-            throw new Exception("Name is required");
+            throw new Exception("Name is required.");
         }
         if (feedback.getEmail() == null || !feedback.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new Exception("Invalid email format");
+            throw new Exception("Invalid email format.");
         }
         if (feedback.getSuggestions() == null || feedback.getSuggestions().trim().isEmpty()) {
-            throw new Exception("Suggestions are required");
-        }
-    }
-    private void calculateTotalSelections(Feedback feedback) {
-        int totalSelections = 0;
-        if (feedback.getExperience() != null) totalSelections += feedback.getExperience().length;
-        if (feedback.getTicketEase() != null) totalSelections += feedback.getTicketEase().length;
-        if (feedback.getPayments() != null) totalSelections += feedback.getPayments().length;
-        if (feedback.getCleanliness() != null) totalSelections += feedback.getCleanliness().length;
-        if (feedback.getQuality() != null) totalSelections += feedback.getQuality().length;
-        if (feedback.getStaff() != null) totalSelections += feedback.getStaff().length;
-        feedback.setTotalSelections(totalSelections);
-    }
-    public void calculateTotalRate(Feedback feedback) {
-        int sum = 0;
-        int count = 0;
-        int[][] allRatings = {
-                feedback.getExperience(),
-                feedback.getTicketEase(),
-                feedback.getPayments(),
-                feedback.getCleanliness(),
-                feedback.getQuality(),
-                feedback.getStaff()
-        };
-
-        for (int[] ratings : allRatings) {
-            if (ratings != null) {
-                for (int rating : ratings) {
-                    if(rating > 0){
-                        sum += rating;
-                        count++;
-                    }
-                }
-            }
-
+            throw new Exception("Suggestions are required.");
         }
 
-        feedback.setTotalRate(count > 0 ? Math.round((float)sum / count) : 0);
+        validateRating("Experience", feedback.getExperience());
+        validateRating("TicketEase", feedback.getTicketEase());
+        validateRating("Payments", feedback.getPayments());
+        validateRating("Cleanliness", feedback.getCleanliness());
+        validateRating("Quality", feedback.getQuality());
+        validateRating("Staff", feedback.getStaff());
+    }
+
+    // Validate a single rating field
+    private void validateRating(String fieldName, int rating) throws Exception {
+        if (rating <= 0 || rating > 5) {
+            throw new Exception(fieldName + " rating must be between 1 and 5.");
+        }
+    }
+
+    // Calculate the average rating and set it in the feedback object
+    private void calculateAverageRating(Feedback feedback) {
+        int sum = feedback.getExperience()
+                + feedback.getTicketEase()
+                + feedback.getPayments()
+                + feedback.getCleanliness()
+                + feedback.getQuality()
+                + feedback.getStaff();
+
+        int count = 6; // Total number of rating fields
+        feedback.setTotalRate(sum / count); // Set average rating
     }
 }

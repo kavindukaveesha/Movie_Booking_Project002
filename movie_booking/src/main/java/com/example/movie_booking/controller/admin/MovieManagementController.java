@@ -1,5 +1,6 @@
 package com.example.movie_booking.controller.admin;
 
+import com.example.movie_booking.config.AppConfig;
 import com.example.movie_booking.model.Movie;
 import com.example.movie_booking.model.Showtime;
 import com.example.movie_booking.service.BookingService;
@@ -31,7 +32,7 @@ public class MovieManagementController extends HttpServlet {
 
     MovieService movieService = new MovieService();
     ShowtimeService showtimeService = new ShowtimeService();
-    private static final String UPLOAD_PATH = "";
+    private static final String UPLOAD_PATH = AppConfig.DB_IMAGES_PATH;
 
     public void dindDbPath(String dbPath) {
         if(dbPath != null) {

@@ -1,5 +1,6 @@
 package com.example.movie_booking.controller.client;
 
+import com.example.movie_booking.config.AppConfig;
 import com.example.movie_booking.model.User;
 import com.example.movie_booking.service.BookingService;
 import com.paypal.api.payments.*;
@@ -22,8 +23,8 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/make-checkout", "/checkout-method"})
 public class CheckoutController extends HttpServlet {
     private BookingService bookingService;
-    private static final String PAYPAL_CLIENT_ID = "AYKZWCAXHKEDccJ9dBKTg2th-ZY1vti2Ymxeun4sAtKgMUvgmvXxqqgiYGdpj8jYevPn22VDbbuIK5xS";
-    private static final String PAYPAL_CLIENT_SECRET = "EPskKFZ-wPXVRlLbQ0Rk8rfBTvuNq1ZwzifvRafkjJVobEMSHtgb2sWKbYn6SRoq3BUZFa1uqpIjHbyQ";
+    private static final String PAYPAL_CLIENT_ID = AppConfig.CLIENT_ID;
+    private static final String PAYPAL_CLIENT_SECRET = AppConfig.SECURITY_ID;
     private static final String MODE = "sandbox";
 
     @Override

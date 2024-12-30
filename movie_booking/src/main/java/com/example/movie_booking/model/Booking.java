@@ -10,9 +10,9 @@ public class Booking {
     private String time;
     private List<String> seatNumbers;
     private double totalPrice;
-    private int bookingId;  // New field
+    private String bookingId;  // New field
 
-    public Booking(int id, int userId, String movieName, String date, String time, List<String> seatNumbers, double totalPrice, int bookingId) {
+    public Booking(int id, int userId, String movieName, String date, String time, List<String> seatNumbers, double totalPrice, String bookingId) {
         this.id = id;
         this.userId = userId;
         this.movieName = movieName;
@@ -45,6 +45,6 @@ public class Booking {
     public double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
 
-    public int getBookingId() { return bookingId; }
-    public void setBookingId(int bookingId) { this.bookingId = bookingId; }
+    public String getBookingId() { return bookingId; }
+    public void setBookingId(String bookingId) { this.bookingId = bookingId; }
 }

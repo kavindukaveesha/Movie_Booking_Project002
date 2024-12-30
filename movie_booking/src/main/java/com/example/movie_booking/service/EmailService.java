@@ -71,18 +71,19 @@ public class EmailService {
     }
 
     // Helper method for booking email content
-// Helper method for booking email content
     private String getBookingEmailContent(String title, Booking bookingDetails, String actionText, String actionLink) {
-        // Extracting details from the JSON object
-        int bookingId = bookingDetails.getBookingId();
+        // Extracting details from the Booking object
+        String bookingId = bookingDetails.getBookingId(); // String type
         String movieName = bookingDetails.getMovieName();
         String date = bookingDetails.getDate();
         String time = bookingDetails.getTime();
         double totalPrice = bookingDetails.getTotalPrice();
 
         // Format the booking details into a string
-        String details = String.format("Booking ID: %d<br>Movie: %s<br>Date: %s<br>Time: %s<br>Total Price: Rs. %.2f",
-                bookingId, movieName, date, time, totalPrice);
+        String details = String.format(
+                "Booking ID: %s<br>Movie: %s<br>Date: %s<br>Time: %s<br>Total Price: Rs. %.2f",
+                bookingId, movieName, date, time, totalPrice
+        );
 
         return "<!DOCTYPE html>"
                 + "<html>"
@@ -94,7 +95,8 @@ public class EmailService {
                 + "            <p>Hello,</p>"
                 + "            <p>Thank you for your booking. Here are your booking details:</p>"
                 + "            <p>" + details + "</p>"
-                + "            <a href='" + actionLink + "' style='padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;'>" + actionText + "</a>"
+                + "            <a href='" + actionLink + "' style='padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;'>"
+                + actionText + "</a>"
                 + "        </div>"
                 + "        <div class='email-footer'>"
                 + "            &copy; 2024 ABC Cinema. All rights reserved."
@@ -103,7 +105,6 @@ public class EmailService {
                 + "</body>"
                 + "</html>";
     }
-
 
 
     // Helper method for cancellation email content

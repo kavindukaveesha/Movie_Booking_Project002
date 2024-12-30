@@ -29,7 +29,7 @@ public class BookingDAO {
             stmt.setString(4, booking.getTime());
             stmt.setArray(5, conn.createArrayOf("TEXT", booking.getSeatNumbers().toArray()));
             stmt.setDouble(6, booking.getTotalPrice());
-            stmt.setInt(7, booking.getBookingId());
+            stmt.setString(7, booking.getBookingId());
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
@@ -57,7 +57,7 @@ public class BookingDAO {
                         rs.getString("time"),
                         seatNumbers,
                         rs.getDouble("totalPrice"),
-                        rs.getInt("bookingId")
+                        rs.getString("bookingId")
                 );
                 bookings.add(booking);
             }
@@ -69,12 +69,12 @@ public class BookingDAO {
             throw new RuntimeException(e);
         }
     }
-    public boolean cancelBooking(int userId, int bookingId) {
+    public boolean cancelBooking(int userId, String bookingId) {
         String query = "DELETE FROM bookings WHERE userId = ? AND bookingId = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId);
-            stmt.setInt(2, bookingId);
+            stmt.setString(2, bookingId);
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;

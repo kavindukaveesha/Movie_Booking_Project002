@@ -33,18 +33,10 @@ public class CancelBookingController extends HttpServlet {
         String bookingIdStr = request.getParameter("bookingId");
 
         System.out.println(bookingIdStr+email);
-        int bookingId;
 
-        try {
-            bookingId = Integer.parseInt(bookingIdStr); // Parse the booking ID from request
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid booking ID.");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-            return;
-        }
 
         // Attempt to cancel the booking
-        boolean isCancelled = bookingService.cancelBooking(userId, bookingId);
+        boolean isCancelled = bookingService.cancelBooking(userId, bookingIdStr);
         if (isCancelled) {
             try {
                 emailService.sendBookingCancellationEmail(email); // Send email confirmation

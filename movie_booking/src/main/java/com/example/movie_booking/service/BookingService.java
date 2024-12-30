@@ -36,7 +36,7 @@ public class BookingService {
      * @param bookingId the ID of the booking to cancel.
      * @return true if the booking was successfully canceled.
      */
-    public boolean cancelBooking(int userId, int bookingId) {
+    public boolean cancelBooking(int userId, String bookingId) {
         return bookingDAO.cancelBooking(userId, bookingId);
     }
 
